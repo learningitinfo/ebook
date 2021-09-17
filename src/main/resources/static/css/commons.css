@@ -1,0 +1,36 @@
+/* 清除默认样式 */
+*{
+    margin: 0;
+    padding: 0;
+}
+/* 浮动 */
+.l{
+    float: left;
+}
+.r{
+    float: right;
+}
+/* 清除浮动,目的是为了解决父元素的塌陷问题 */
+.clearfix:after{
+    content: '';
+    clear: both;
+    display: block;
+}
+/* 通栏 */
+.flux{
+    width: 100vw;
+}
+/* 版心 */
+.container{
+    width: 1200px;
+    margin:0 auto;
+}
+/* 设置a拦截样式 */
+a{
+    text-decoration: none;
+    color: #FF7F50;
+}
+ul{
+    list-style-type:none;
+}
+

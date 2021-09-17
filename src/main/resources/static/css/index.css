@@ -1,0 +1,350 @@
+/* 导航栏部分的CSS代码 */
+.header{
+    height: 75px;
+    box-shadow: 0px 5px 10px #ccc;
+    line-height: 75px;
+    position:fixed;
+    top: 0;
+    z-index: 999;
+}
+.logo img{
+    height: 60px;
+}
+.shortcut li{
+    float: left;
+    margin-right: 25px;
+}
+.shortcut li:nth-of-type(1){
+    margin-right: 55px;
+    margin-left: 10px;
+}
+.shortcut li:nth-of-type(1) img{
+    width: 15px;
+    vertical-align: middle;
+}
+.shortcut li:nth-of-type(4){
+    position:relative;
+    margin-left: 60px;
+    width: 379px;
+}
+.shortcut li:nth-of-type(4) input{
+    width: 319px;
+    height: 46px;
+    background-color: #F8F8F8;
+    border: none;
+    outline: none;
+    border-radius: 23px; /*圆角矩形：border-radius的值为height的一半*/
+    padding-left: 55px;
+}
+.shortcut li:nth-of-type(4) input::placeholder{
+    font-size: 16px;
+}
+.shortcut li:nth-of-type(4) img{
+    position: absolute;
+    height: 24px;
+    top:50%;
+    left: 20px;
+    margin-top:-10px;
+}
+.shortcut li:nth-of-type(4) button{
+    position:absolute;
+    right: 20px;
+    top:16px;
+    width: 80px;
+    height: 46px;
+    border: none;
+    background-color: #FF7F50;
+    color: white;
+    border-top-right-radius: 32px;
+    border-bottom-right-radius: 32px;
+}
+.shortcut li:nth-of-type(5) img{
+    width: 30px;
+    vertical-align:middle;
+    margin-right: 5px;
+    transition: .8s;
+}
+.shortcut li:nth-of-type(5) img:hover{
+    transform: rotate(360deg);
+}
+.shortcut li:nth-of-type(6) img{
+    width: 30px;
+    vertical-align:middle;
+    margin-right: 5px;
+    transition: .8s;
+}
+.shortcut li:nth-of-type(6) img:hover{
+    transform: rotate(360deg);
+}
+.shortcut li:nth-of-type(7) .shopcart{
+    width: 110px;
+    height: 40px;
+    background-color: #FF7F50;
+    margin-top: 18px;
+    line-height: 40px;
+    padding-left: 10px;
+    color: white;
+}
+.shortcut li:nth-of-type(7) .shopcart:hover{
+    background-color: #CCC;
+    color: red;
+    border: 1px solid #999;
+}
+
+/* 轮播图部分的CSS代码 */
+.box{
+    position:relative;
+    width: 1200px;
+    height: 320px;
+    margin: 0 auto;
+    margin-top:75px;
+}
+.indicator{
+    position:absolute;
+    bottom: 0;
+    right: 10px;
+    list-style: none;
+}
+.indicator li{
+    float: left;
+    width: 12px;
+    height: 12px;
+    margin: 5px;
+    background-color: #ccc;
+    border-radius: 50%;
+}
+.indicator li:nth-of-type(1){
+       background-color: #fff;
+}
+/*
+  第三种居中方式
+  垂直居中
+  1.div盒子的定位方式为绝对定位
+  2.top:50%
+  3.margin-top:-盒子的高度的一般
+*/
+.leftBtn{
+    position:absolute;
+    top:50%;
+    margin-top: -30px;
+    width: 60px;
+    height: 60px;
+    background-color:rgba(0, 0, 0, .3);
+    color:wheat;
+    font-family: '宋体';
+    font-size: 58px;
+    text-align: center;
+    line-height: 60px;
+    display: none;
+}
+.leftBtn:hover{
+    background-color: #000;
+}
+.rightBtn{
+    position:absolute;
+    right: 0;
+    top:50%;
+    margin-top: -30px;
+    width: 60px;
+    height: 60px;
+    background-color:rgba(0, 0, 0, .3);
+    color:wheat;
+    font-family: '宋体';
+    font-size: 58px;
+    text-align: center;
+    line-height: 60px;
+    display: none;
+}
+.rightBtn:hover{
+    background-color: #000;
+}
+.box:hover .leftBtn{
+    display: block;
+}
+.box:hover .rightBtn{
+    display: block;
+}
+/* 热卖商品CSS样式 */
+.hotpro{
+    /* position: relative; */
+    width: 1200px;
+    height: 600px;/*主要为了做测试*/
+    border: 1px solid #ccc;
+    margin-top:25px;
+    margin-bottom: 10px;
+}
+.hotpro .title{
+    border-bottom: 1px dashed #ccc;
+    background:linear-gradient(to right bottom,#9AD5E1,#D6F2F5);
+}
+
+.hotpro .title .first-title{
+    width: 40px;
+    height: 40px;
+    background-color: #FF7F50;
+    border-radius: 50%;
+    margin: 20px 5px 20px 20px;
+    color: white;
+    text-align: center;
+    line-height: 40px;
+    font-family: '宋体';
+    font-size: 28px;
+    transition: .5s;/*设置过渡时间为0.5秒完成动画*/
+}
+.hotpro .title .first-title:hover{
+    transform: rotate(360deg);
+    cursor: pointer;
+}
+.hotpro .title .second-title{
+    font-size: 20px;
+    font-weight: bold;
+    color: #FF7F50;
+    margin-top:25px;
+}
+.hotpro .main{
+    width: 1100px;
+    height: 500px;
+    margin: 20px auto;
+}
+.hotpro .main ul li{
+    width: 200px;
+    height: 220px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    float: left;
+    margin-right: 8px;
+    margin-bottom: 25px;
+    text-align: center;
+    padding: 0 5px;
+    font-size: 14px;
+    overflow: hidden;
+}
+.hotpro .main ul li img{
+    width: 150px;
+    margin-top: 10px;
+    /* filter: blur(5px); */
+    /* filter:grayscale(100%); */
+    transition: .8s;
+}
+.hotpro .main ul li img:hover{
+    /* filter: blur(0px); */
+    /* filter: grayscale(0); */
+    filter: opacity(.5);
+    transform: scale(1.2);
+}
+.hotpro .main p{
+    white-space:nowrap; 
+    overflow: hidden;
+    text-overflow:ellipsis; 
+}
+.hotpro .main p:nth-of-type(2){
+    color: #999;
+}
+.hotpro .main p:nth-of-type(3) span:nth-of-type(1){
+    font-weight: bold;
+    color: #CC3300;
+    margin: 0 5px;
+}
+.hotpro .main p:nth-of-type(3) span:nth-of-type(2){
+    color: #999;
+    text-decoration: line-through;
+    margin: 0 5px;
+}
+
+/* 底部栏样式 */
+.footer{
+    margin-top: 25px;
+    padding-top:25px;
+    height: 300px;
+    color: #444;
+    /* background-color: #EAEAEA; */
+}
+.footer .f1{
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 30px;
+}
+.footer .f1 ul{
+    display: flex;
+    justify-content:space-around;
+}
+.footer .f1 ul li{
+    width: 215px;
+}
+.footer .f1 .tb1{
+    float: left;
+    width: 40px;
+    height: 40px;
+    background-image: url('../images/bg.png');
+    background-position: 0 -193px;
+}
+.footer .f1 .tbc{
+    margin-top: 10px;
+}
+.footer .f1 .tb2{
+    float: left;
+    width: 40px;
+    height: 40px;
+    background-image: url('../images/bg.png');
+    background-position: -41px -193px;
+}
+.footer .f1 .tb3{
+    float: left;
+    width: 40px;
+    height: 40px;
+    background-image: url('../images/bg.png');
+    background-position: -82px -193px;
+}
+.footer .f1 .tb4{
+    float: left;
+    width: 40px;
+    height: 40px;
+    background-image: url('../images/bg.png');
+    background-position: -123px -193px;
+}
+
+.footer .operator{
+    margin-top: 10px;
+    width: 100%;
+    height: 1px;
+    border-bottom:1px solid #DEDEDE;
+}
+.footer .f2{
+    display:flex;
+    justify-content: space-around;
+}
+.footer .f2 div{
+    margin-top: 20px;
+    flex-grow: 1; /*平分*/
+    height: 200px;
+    font-size: 14px;
+    display:flex;
+    justify-content: center;
+}
+.footer .f2 ul li:nth-of-type(1){
+    font-weight: bold;
+    font-size: 16px;
+}
+.footer .f2 div a{
+    color:#666;
+}
+.footer .f2 div li{
+    line-height: 25px;
+}
+.footer .f3{
+    color: #444;
+    display: flex;
+    justify-content:center;
+}
+.footer .f3 span{
+    margin: 10px;
+}
+.footer .f4{
+    color: #444;
+    display: flex;
+    justify-content:center;
+}
+.footer .f4 span{
+    margin: 10px;
+}
+

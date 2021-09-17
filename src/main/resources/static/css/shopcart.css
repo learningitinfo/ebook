@@ -1,0 +1,81 @@
+.shoptable{
+    border-collapse: collapse;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    margin-top: 115px;
+}
+.shoptable a{
+    text-decoration: none;
+    color: #866F6F;
+
+}
+.shoptable th{
+    border: 1px solid #ccc;
+    height: 40px;
+    background-color: #F5F5F5;
+}
+.shoptable td{
+    border-bottom: 1px solid #ccc;
+    padding: 20px;
+}
+.shoptable .shopimg{
+    width: 75px;
+    height: 75px;
+    border:  1px solid #999;
+}
+.shoptable .shopimg img{
+    width: 68px;
+    height: 68px;
+}
+
+.shoptable .inpunum{
+    width: 25px;
+    text-align: center;
+}
+.shoptable .opr{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ccc;
+    text-align: center;
+    line-height: 20px;
+}
+.shoptable .price{
+    font-weight: bold;
+    color: #866F6F;
+}
+.shoptable .totalprice{
+    font-weight: bold;
+    color: #C00505;
+}
+.tpr{
+    box-sizing: border-box;
+    width: 1200px;
+    height: 50px;
+    margin: 10 auto;
+    background-color: #ccc;
+    line-height: 50px;
+    text-align: right;
+    font-size: 14px;
+    /* color: #C00505; */
+    padding-right: 100px;
+}
+.tpr .pr{
+    color: #C00505;
+    font-weight: bold;
+}
+.tpr .btn{
+    width: 94px;
+    height: 52px;
+    background-color: #E64347;
+    color: white;
+    font-size: 18px;
+    border: none;
+}
+#selectedcount{
+    color:#E64347;
+    font-weight: bold;
+}
+
+
