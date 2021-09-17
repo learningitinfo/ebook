@@ -109,6 +109,27 @@
                                 //将a标签设置为li的子标签
                                 li.append(a);
 
+                                //名字的p标签
+                                //let name = $("<p>"+goods.name+"</p>");
+                                let name = $("<p></p>").text(goods.name);
+                                li.append(name);
+
+                                //商品描述
+                                let description = $("<p></p>").text(goods.description);
+                                li.append(description);
+
+                                //价格
+                                let marketprice = $("<span></span>").text(goods.marketprice);
+                                let salesprice = $("<span></span>").text(goods.salesprice);
+                                let price_p = $("<p></p>");
+                                //将价格标签设置为price_p的子标签
+
+                                price_p.append(salesprice);
+                                price_p.append(marketprice);
+
+                                //将价格p标签设置到li上
+                                li.append(price_p);
+
                                 //找到ul标签，并将li设置为ul的子标签
                                 $("#newsetgoods").append(li);
                             }

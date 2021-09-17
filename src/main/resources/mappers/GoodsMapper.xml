@@ -14,11 +14,11 @@
 
     <!--查询新上架的商品-->
     <select id="findNewSet" resultType="Goods">
-        SELECT id,name,image,marketprice,salesprice FROM mall_goods WHERE newset='是' LIMIT 0,10;
+        SELECT id,name,image,marketprice,salesprice,description FROM mall_goods WHERE newset='是' LIMIT 0,10;
     </select>
 
     <!--查询热卖商品-->
     <select id="findHot" resultType="Goods">
-        SELECT id,name,image,marketprice,salesprice FROM mall_goods WHERE hot='是' LIMIT 0,10;
+        SELECT id,name,image,marketprice,salesprice,description FROM mall_goods WHERE hot='是' LIMIT 0,10;
     </select>
 </mapper>
