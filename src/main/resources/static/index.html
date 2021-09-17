@@ -90,6 +90,7 @@
                         type:"get",
                         dataType:"json",  //期望得到的数据类型
                         success:function (res) {  //当请求成功之后调用的回调函数，res就是得到的数据
+                            console.log(res);
                             //遍历数组，创建li
                             for(let i = 0;i < res.length; i++){
                                 //得到商品

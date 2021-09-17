@@ -1,6 +1,7 @@
 package com.leshan.ebook.mapper;
 
 import com.leshan.ebook.mybatis.entity.Goods;
+import com.leshan.ebook.mybatis.entity.dto.GoodsDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -12,8 +13,8 @@ public interface GoodsMapper {
     public Goods findById(int id);
 
     //查询新上架的商品
-    public List<Goods> findNewSet();
+    public List<GoodsDto> findNewSet();
 
     //查询热卖商品
-    public List<Goods> findHot();
+    public List<GoodsDto> findHot();
 }

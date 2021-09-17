@@ -1,6 +1,7 @@
 package com.leshan.ebook.controller;
 
 import com.leshan.ebook.mybatis.entity.Goods;
+import com.leshan.ebook.mybatis.entity.dto.GoodsDto;
 import com.leshan.ebook.service.GoodsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +20,9 @@ public class GoodsController {
     //处理新上架商品的请求
     @RequestMapping("/newset")
     @ResponseBody  //将响应头中Content-Type的值设置为  application/json 代表以json格式向浏览器返回数据
-    public List<Goods> findNewSet(){
+    public List<GoodsDto> findNewSet(){
         //调用service对应的方法
-        List<Goods> goodsList = goodsService.findNewSet();
+        List<GoodsDto> goodsList = goodsService.findNewSet();
         //返回数据
         return goodsList;
     }

@@ -2,6 +2,7 @@ package com.leshan.ebook.service.impl;
 
 import com.leshan.ebook.mapper.GoodsMapper;
 import com.leshan.ebook.mybatis.entity.Goods;
+import com.leshan.ebook.mybatis.entity.dto.GoodsDto;
 import com.leshan.ebook.service.GoodsService;
 import org.springframework.stereotype.Service;
 
@@ -21,12 +22,12 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public List<Goods> findNewSet() {
+    public List<GoodsDto> findNewSet() {
         return goodsMapper.findNewSet();
     }
 
     @Override
-    public List<Goods> findHot() {
+    public List<GoodsDto> findHot() {
         return goodsMapper.findHot();
     }
 }
