@@ -290,5 +290,21 @@
     </div>
     <!-- 底部栏结束 -->
 </body>
+<!--引入jQuery-->
+<script src="js/jquery.min.js"></script>
+<script>
+    //1.获取到id  通过页面的url来获取
+    let url = window.location.href;
+    console.log(url);
+
+    //2.通过=将url转换成数组，数组的第[1]个就是id值
+    let arr = url.split("=");
+
+    //3.得到id
+    let id = arr[1];
+
+    console.log(id);
+
+</script>
 
 </html>
