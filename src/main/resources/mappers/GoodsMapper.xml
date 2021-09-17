@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace的值必须与对应mapper接口的全名一致-->
+<mapper namespace="com.leshan.ebook.mapper.GoodsMapper">
+    <!--id:SQL语句的唯一标识符，在整个xml文件中不能出现id一样的SQL
+        id的值应该与对应的方法名一致
+        resultType：指定将查询出来的数据封装成什么类型的对象
+    -->
+    <select id="findById" resultType="Goods">
+        select * from mall_goods where id = #{id}
+    </select>
+
+    <!--查询新上架的商品-->
+    <select id="findNewSet" resultType="Goods">
+        SELECT id,name,image,marketprice,salesprice FROM mall_goods WHERE newset='是' LIMIT 0,10;
+    </select>
+
+    <!--查询热卖商品-->
+    <select id="findHot" resultType="Goods">
+        SELECT id,name,image,marketprice,salesprice FROM mall_goods WHERE hot='是' LIMIT 0,10;
+    </select>
+</mapper>
