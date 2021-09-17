@@ -120,8 +120,8 @@
                                 li.append(description);
 
                                 //价格
-                                let marketprice = $("<span></span>").text(goods.marketprice);
-                                let salesprice = $("<span></span>").text(goods.salesprice);
+                                let marketprice = $("<span></span>").text("￥"+goods.marketprice);
+                                let salesprice = $("<span></span>").text("￥"+goods.salesprice);
                                 let price_p = $("<p></p>");
                                 //将价格标签设置为price_p的子标签
 
@@ -151,117 +151,60 @@
             <div class="second-title l">卖上架</div>
         </div>
         <div class="main">
-            <ul>
-                <li>
-                    <a href="#">
-                        <img src="./images/goods/0019afc71fa54435b055471d509915b6.jpg" alt="">
-                    </a>
-                    <p>古代人的日常生活2</p>
-                    <p>讲历史的王老师；读客文化出品</p>
-                    <p>
-                        <span>￥37.9</span>
-                        <span>￥75.9</span>
-                    </p>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="./images/goods/002a1b0706864b6294d36314197155cc.jpg" alt="">
-                    </a>
-                    <p>古代人的日常生活2</p>
-                    <p>讲历史的王老师；读客文化出品</p>
-                    <p>
-                        <span>￥37.9</span>
-                        <span>￥75.9</span>
-                    </p>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="./images/goods/00b5a81cc4ce494f870f4d80bffa774f.jpg" alt="">
-                    </a>
-                    <p>古代人的日常生活2</p>
-                    <p>讲历史的王老师；读客文化出品</p>
-                    <p>
-                        <span>￥37.9</span>
-                        <span>￥75.9</span>
-                    </p>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="./images/goods/017ee969b818449190158fd0acf05c1a.jpg" alt="">
-                    </a>
-                    <p>古代人的日常生活2</p>
-                    <p>讲历史的王老师；读客文化出品</p>
-                    <p>
-                        <span>￥37.9</span>
-                        <span>￥75.9</span>
-                    </p>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="./images/goods/02116fd2b58b491d9fc3945bc59b6d59.jpg" alt="">
-                    </a>
-                    <p>古代人的日常生活2</p>
-                    <p>讲历史的王老师；读客文化出品</p>
-                    <p>
-                        <span>￥37.9</span>
-                        <span>￥75.9</span>
-                    </p>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="./images/goods/022f707e6c9a4e249de1dbac3321d440.jpg" alt="">
-                    </a>
-                    <p>古代人的日常生活2</p>
-                    <p>讲历史的王老师；读客文化出品</p>
-                    <p>
-                        <span>￥37.9</span>
-                        <span>￥75.9</span>
-                    </p>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="./images/goods/03df3424205f437b99bad05dfe67eb5d.jpg" alt="">
-                    </a>
-                    <p>古代人的日常生活2</p>
-                    <p>讲历史的王老师；读客文化出品</p>
-                    <p>
-                        <span>￥37.9</span>
-                        <span>￥75.9</span>
-                    </p>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="./images/goods/06663ab5e8c54df6a1b9c65ada9ef1da.jpg" alt="">
-                    </a>
-                    <p>古代人的日常生活2</p>
-                    <p>讲历史的王老师；读客文化出品</p>
-                    <p>
-                        <span>￥37.9</span>
-                        <span>￥75.9</span>
-                    </p>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="./images/goods/093d7910090649e8b6a3d2b6ee0c29d8.jpg" alt="">
-                    </a>
-                    <p>古代人的日常生活2</p>
-                    <p>讲历史的王老师；读客文化出品</p>
-                    <p>
-                        <span>￥37.9</span>
-                        <span>￥75.9</span>
-                    </p>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="./images/goods/0df0ed5f5b4f43d9aeb0f37fed02d4fb.jpg" alt="">
-                    </a>
-                    <p>古代人的日常生活2</p>
-                    <p>讲历史的王老师；读客文化出品</p>
-                    <p>
-                        <span>￥37.9</span>
-                        <span>￥75.9</span>
-                    </p>
-                </li>
+            <ul id="hotgoods">
+                <script>
+                    $.ajax({
+                        url:"/goods/hot",
+                        type:"get",
+                        dataType:"json",  //期望得到的数据类型
+                        success:function (res) {  //当请求成功之后调用的回调函数，res就是得到的数据
+                            console.log(res);
+                            //遍历数组，创建li
+                            for(let i = 0;i < res.length; i++){
+                                //得到商品
+                                let goods = res[i];
+                                //创建li
+                                let li = $("<li></li>");
+
+                                //创建a标签
+                                let a = $("<a href='detail.html'></a>");
+
+                                //创建img标签
+                                let img = $("<img src='" + goods.image + "'>");
+
+                                //将img标签设置为a标签的子标签
+                                a.append(img);
+
+                                //将a标签设置为li的子标签
+                                li.append(a);
+
+                                //名字的p标签
+                                //let name = $("<p>"+goods.name+"</p>");
+                                let name = $("<p></p>").text(goods.name);
+                                li.append(name);
+
+                                //商品描述
+                                let description = $("<p></p>").text(goods.description);
+                                li.append(description);
+
+                                //价格
+                                let marketprice = $("<span></span>").text("￥"+goods.marketprice);
+                                let salesprice = $("<span></span>").text("￥"+goods.salesprice);
+                                let price_p = $("<p></p>");
+                                //将价格标签设置为price_p的子标签
+
+                                price_p.append(salesprice);
+                                price_p.append(marketprice);
+
+                                //将价格p标签设置到li上
+                                li.append(price_p);
+
+                                //找到ul标签，并将li设置为ul的子标签
+                                $("#hotgoods").append(li);
+                            }
+                        }
+                    });
+                </script>
             </ul>
         </div>
     </div>

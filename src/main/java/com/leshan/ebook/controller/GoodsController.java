@@ -26,4 +26,12 @@ public class GoodsController {
         //返回数据
         return goodsList;
     }
+
+    //处理热卖商品请求
+    @RequestMapping("/hot")
+    @ResponseBody
+    public List<GoodsDto> findHot(){
+        List<GoodsDto> goodsDtoList = goodsService.findHot();
+        return  goodsDtoList;
+    }
 }
