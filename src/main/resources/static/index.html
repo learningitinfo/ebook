@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="./css/commons.css">
     <link rel="stylesheet" href="./css/index.css">
     <link rel="stylesheet" href="http://at.alicdn.com/t/font_2466032_1guctssow9r.css">
+    <!--导入jQuery-->
+    <script src="./js/jquery.min.js"></script>
     
 </head>
 <body>
@@ -82,105 +84,17 @@
                         <span>￥75.9</span>
                     </p>
                 </li>
-                <li>
-                    <a href="#">
-                        <img src="./images/goods/002a1b0706864b6294d36314197155cc.jpg" alt="">
-                    </a>
-                    <p>古代人的日常生活2</p>
-                    <p>讲历史的王老师；读客文化出品</p>
-                    <p>
-                        <span>￥37.9</span>
-                        <span>￥75.9</span>
-                    </p>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="./images/goods/00b5a81cc4ce494f870f4d80bffa774f.jpg" alt="">
-                    </a>
-                    <p>古代人的日常生活2</p>
-                    <p>讲历史的王老师；读客文化出品</p>
-                    <p>
-                        <span>￥37.9</span>
-                        <span>￥75.9</span>
-                    </p>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="./images/goods/017ee969b818449190158fd0acf05c1a.jpg" alt="">
-                    </a>
-                    <p>古代人的日常生活2</p>
-                    <p>讲历史的王老师；读客文化出品</p>
-                    <p>
-                        <span>￥37.9</span>
-                        <span>￥75.9</span>
-                    </p>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="./images/goods/02116fd2b58b491d9fc3945bc59b6d59.jpg" alt="">
-                    </a>
-                    <p>古代人的日常生活2</p>
-                    <p>讲历史的王老师；读客文化出品</p>
-                    <p>
-                        <span>￥37.9</span>
-                        <span>￥75.9</span>
-                    </p>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="./images/goods/022f707e6c9a4e249de1dbac3321d440.jpg" alt="">
-                    </a>
-                    <p>古代人的日常生活2</p>
-                    <p>讲历史的王老师；读客文化出品</p>
-                    <p>
-                        <span>￥37.9</span>
-                        <span>￥75.9</span>
-                    </p>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="./images/goods/03df3424205f437b99bad05dfe67eb5d.jpg" alt="">
-                    </a>
-                    <p>古代人的日常生活2</p>
-                    <p>讲历史的王老师；读客文化出品</p>
-                    <p>
-                        <span>￥37.9</span>
-                        <span>￥75.9</span>
-                    </p>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="./images/goods/06663ab5e8c54df6a1b9c65ada9ef1da.jpg" alt="">
-                    </a>
-                    <p>古代人的日常生活2</p>
-                    <p>讲历史的王老师；读客文化出品</p>
-                    <p>
-                        <span>￥37.9</span>
-                        <span>￥75.9</span>
-                    </p>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="./images/goods/093d7910090649e8b6a3d2b6ee0c29d8.jpg" alt="">
-                    </a>
-                    <p>古代人的日常生活2</p>
-                    <p>讲历史的王老师；读客文化出品</p>
-                    <p>
-                        <span>￥37.9</span>
-                        <span>￥75.9</span>
-                    </p>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="./images/goods/0df0ed5f5b4f43d9aeb0f37fed02d4fb.jpg" alt="">
-                    </a>
-                    <p>古代人的日常生活2</p>
-                    <p>讲历史的王老师；读客文化出品</p>
-                    <p>
-                        <span>￥37.9</span>
-                        <span>￥75.9</span>
-                    </p>
-                </li>
+                <script>
+                    $.ajax({
+                        url:"/goods/newset",
+                        type:"get",
+                        dataType:"json",  //期望得到的数据类型
+                        success:function (res) {  //当请求成功之后调用的回调函数，res就是得到的数据
+                            console.log(res);
+                        }
+                    });
+                </script>
+
             </ul>
         </div>
     </div>
