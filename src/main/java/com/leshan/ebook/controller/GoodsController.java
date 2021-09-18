@@ -34,4 +34,13 @@ public class GoodsController {
         List<GoodsDto> goodsDtoList = goodsService.findHot();
         return  goodsDtoList;
     }
+
+    //以id作为查询条件，查询商品的详细信息
+    @RequestMapping("/findbyid")
+    @ResponseBody
+    public Goods findGoodsById(int id){
+
+        return goodsService.findById(id);
+    }
+
 }

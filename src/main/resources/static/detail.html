@@ -55,7 +55,7 @@
     <!-- 商品详情部分 -->
     <div class="bookdetail container">
         <div class="detail-img">
-            <img src="http://img3m6.ddimg.cn/70/2/28529296-1_w_5.jpg" alt="">
+            <img id="image" src="http://img3m6.ddimg.cn/70/2/28529296-1_w_5.jpg" alt="">
         </div>
         <div class="detail-content">
             <div class="detail-content-h">
@@ -304,6 +304,20 @@
     let id = arr[1];
 
     console.log(id);
+
+    //4.向后台发送请求，将当前商品的id传给后台
+    //1.当数量不大、不敏感时可以拼接在url后面
+    //2.当数据很大或者数据很敏感需要将数据放在data属性中
+    $.ajax({
+        url:"goods/findbyid?id=" + id,
+        type: "get",
+        success: function (res) {
+            //打印得到的数据
+            console.log(res);
+            //通过id选择器找到img标签
+            $("#image").prop("src",res.image);
+        }
+    });
 
 </script>
 
