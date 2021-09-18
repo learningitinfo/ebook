@@ -138,6 +138,24 @@
                         let price = $("#salesprice").text();
 
                         console.log(id,num,price);
+
+                        //发请求
+                        $.ajax({
+                            url:"/cart/add",
+                            data:{  //传参
+                                "id":id,
+                                "num":num,
+                                "price":price
+                            },
+                            success:function (res) {
+                                console.log(res);
+                                if (res.status == "NO_LOGIN"){
+                                    //跳转到登录页面
+                                    alert(res.message);
+                                    window.location.href = "login.html";
+                                }
+                            }
+                        })
                     }
                 </script>
             </div>
