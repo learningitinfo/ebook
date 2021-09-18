@@ -59,18 +59,18 @@
         </div>
         <div class="detail-content">
             <div class="detail-content-h">
-                <h3>社交新零售：5G时代的零售变革，读懂零售本质，抓住未来商机。</h3>
-                <p>
+                <h3 id="name" style="display: block;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">社交新零售：5G时代的零售变革，读懂零售本质，抓住未来商机。</h3>
+                <p style="display: none;">
                     <span>教你如何把货铺到消费者的枕头上，从而实现把货卖到爆。</span>
                     <a href="#">吴晓波新作，一本书读懂三百年商业历史>></a>
                 </p>
             </div>
             <div class="detail-content-m clearfix">
                 <div class="detail-content-m-l">
-                    <p>作者: <a href="#">王欧飏</a></p>
-                    <p>出品: <a href="#">人天兀鲁思</a></p>
-                    <p>出版社:<a href="#">人民邮件出版社</a> </p>
-                    <p>出版时间：2020年05月</p>
+                    <p>作者: <a href="#" id="author">王欧飏</a></p>
+
+                    <p>出版社:<a href="#" id="publisher">人民邮件出版社</a> </p>
+                    <p id="pubtime">出版时间：2020年05月</p>
                     <p>评分：
                         <i class="iconfont icon-xing_mian selectedstart"></i>
                         <i class="iconfont icon-xing_mian selectedstart"></i>
@@ -78,17 +78,38 @@
                         <i class="iconfont icon-xing"></i>
                         <i class="iconfont icon-xing"></i>
                     </p>
+                    <p id="stock">库存:</p>
                 </div>
                 <div class="detail-content-m-r">
-                    销售价：<span class="price">￥37.82</span>
+                    销售价：<span class="price" id="salesprice">￥37.82</span>
                 </div>
             </div>
 
             <div class="detail-content-b">
                 <span>购买数量</span>
                 <span>-</span>
-                <input type="text" value="1" class="num">
-                <span>+</span>
+                <input type="text" value="1" class="num" id="num">
+                <span onclick="addnum()">+</span>
+                <script>
+                    function addnum() {
+                        //1.先得到原来的数量
+                        let num = parseInt($("#num").val());//val得到的是字符串，需要转换成整数
+                        //判断当前数量是否已经大于等于库存了，如等于库存了就不能加了
+                        //通过id选择器找到库存标签，然后得到文本内容，再通过:对字符串进行拆分
+                        let stock = parseInt($("#stock").text().split(":")[1]);
+
+                        //判断
+                        if (num >= stock){
+                            alert("库存不足!");
+                            return;   //结束，不执行后面的代码
+                        }
+
+                        //2.在原值的基础上+1
+                        num = num + 1;
+                        //3.修改input标签的值
+                        $("#num").val(num);
+                    }
+                </script>
                 <button>
                     <i class="iconfont icon-renminbifuhao-"></i>立即购买
                 </button>
@@ -109,25 +130,60 @@
         </div>
         <div class="prointro-prodetail">
             <h4>内容简介</h4>
-            <p style="text-indent:2em;">
+            <p style="text-indent:2em;" id="description">
                 带货女王薇娅三分钟带货上万件，抖音网红一个推荐就商品缺货，这些现象的核心在于他们都用了社交新零售。传统的零售是把货铺在卖场，而社交新零售教你如何把货铺到消费者的枕头上，从而实现把货卖到爆。如果你错过了电子商务化，也错过了微商，下一个你不可错过的风口就是社交新零售。
                 在本书里，我们将从7个方面去分析社交新零售以及做好社交新零售的“打法”，为传统电商与零售企业转战社交新零售提供理论基础及实操方法。本书最大的特色在于：通俗易懂，与实例结合。通过案例与示意图的结合，不仅能提升阅读体验，还能够帮助读者加深理解。此外，示意图、逻辑图十分清晰明了，可以让读者朋友们理清思路，引导读者自我的思考。
             </p>
-            <h4>作者简介</h4>
-            <p>王鸥飏: </p>
-            <p>华东师范大学职业教育与成人教育研究所 博士/讲师</p>
-            <p>华东师范大学心理测评与人才评价中心 副主席</p>
-            <p>BITAC英国在华培训师协会全国委员会 主席</p>
-            <p>国家培训师职业资格标准开发组组长、教材主编</p>
-            <p>ICF 国际教练联合会 专业教练</p>
-            <p>PCT教练式培训师 认证课程 创始人</p>
-            <p>Persona GLOBAL 领导力&情能 中国区认证讲师</p>
+
         </div>
         <div class="prointro-procomment">
             iOS 是一个由苹果公司开发和发布的手机操作系统。最初是于 2007 年首次发布 iPhone、iPod Touch 和 Apple TV。iOS 派生自 OS X，它们共享 Darwin 基础。OS X
             操作系统是用在苹果电脑上，iOS 是苹果的移动版本。
         </div>
     </div>
+    <!--引入jQuery-->
+    <script src="js/jquery.min.js"></script>
+    <script>
+        //1.获取到id  通过页面的url来获取
+        let url = window.location.href;
+        console.log(url);
+
+        //2.通过=将url转换成数组，数组的第[1]个就是id值
+        let arr = url.split("=");
+
+        //3.得到id
+        let id = arr[1];
+
+        console.log(id);
+
+        //4.向后台发送请求，将当前商品的id传给后台
+        //1.当数量不大、不敏感时可以拼接在url后面
+        //2.当数据很大或者数据很敏感需要将数据放在data属性中
+        $.ajax({
+            url:"goods/findbyid?id=" + id,
+            type: "get",
+            success: function (res) {
+                //打印得到的数据
+                console.log(res);
+                //通过id选择器找到img标签
+                $("#image").prop("src",res.image);
+                //商品名
+                $("#name").text(res.name);
+                //描述
+                $("#description").text(res.description);
+                //作者
+                $("#author").text(res.author);
+                //出版社
+                $("#publisher").text(res.publisher);
+                //出版时间
+                $("#pubtime").text("出版时间:"+res.pubtime);
+                //库存
+                $("#stock").text("库存:"+res.stock);
+            }
+        });
+
+    </script>
+
       <!-- 底部栏开始 -->
       <div class="footer flux">
         <div class="f1 container">
@@ -290,35 +346,6 @@
     </div>
     <!-- 底部栏结束 -->
 </body>
-<!--引入jQuery-->
-<script src="js/jquery.min.js"></script>
-<script>
-    //1.获取到id  通过页面的url来获取
-    let url = window.location.href;
-    console.log(url);
 
-    //2.通过=将url转换成数组，数组的第[1]个就是id值
-    let arr = url.split("=");
-
-    //3.得到id
-    let id = arr[1];
-
-    console.log(id);
-
-    //4.向后台发送请求，将当前商品的id传给后台
-    //1.当数量不大、不敏感时可以拼接在url后面
-    //2.当数据很大或者数据很敏感需要将数据放在data属性中
-    $.ajax({
-        url:"goods/findbyid?id=" + id,
-        type: "get",
-        success: function (res) {
-            //打印得到的数据
-            console.log(res);
-            //通过id选择器找到img标签
-            $("#image").prop("src",res.image);
-        }
-    });
-
-</script>
 
 </html>
