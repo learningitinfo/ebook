@@ -1,3 +1,4 @@
+let stock =0 ;
 //当页面加载的时候会被调用
 window.onload=function(){
      //给该元素绑定事件:元素对象.on事件类型=事件处理函数

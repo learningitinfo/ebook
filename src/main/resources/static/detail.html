@@ -87,7 +87,7 @@
 
             <div class="detail-content-b">
                 <span>购买数量</span>
-                <span>-</span>
+                <span onclick="subnum()">-</span>
                 <input type="text" value="1" class="num" id="num">
                 <span onclick="addnum()">+</span>
                 <script>
@@ -107,6 +107,20 @@
                         //2.在原值的基础上+1
                         num = num + 1;
                         //3.修改input标签的值
+                        $("#num").val(num);
+                    }
+                    function subnum() {
+                        //1.得到原数量
+                        let num = parseInt($("#num").val());
+                        //2.判断
+                        if (num <= 1){
+                            alert("至少购买一件!");
+                            return;
+                        }
+                        //3.在原来的基础上-1
+                        num = num - 1;
+
+                        //4.重新设置数字
                         $("#num").val(num);
                     }
                 </script>
