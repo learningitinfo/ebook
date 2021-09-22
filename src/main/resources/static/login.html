@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="./css/commons.css">
     <link rel="stylesheet" href="./css/index.css">
     <link rel="stylesheet" href="http://at.alicdn.com/t/font_2466032_ycuozd5kl5.css">
-    <link rel="stylesheet" href="./css/detail.css">
-    <script src="./js/detail.js"></script>
+<!--    <link rel="stylesheet" href="./css/detail.css">-->
+<!--    <script src="./js/detail.js"></script>-->
 </head>
 <body>
 <!-- 头部开始 -->
@@ -56,20 +56,31 @@
 <div class="container">
     <div style="position: relative;top: 100px;">
         <!--账号输入框-->
-        <input type="text" name="account">
+        <input type="text" id="account">
         <br>
         <!--密码-->
-        <input type="password" name="pwd">
+        <input type="password" id="pwd">
         <br>
-        <input type="submit" value="登录">
+
         <!--当用户输入完账号、密码之后提交数据，得到后台返回的结果，结果有两种情况：
         第一种登录成功，跳转到首页；第二种中失败，提示账号或者密码有误，要重新输入-->
+        <script>
+            function login() {
+                alert(1);
+                //1.得到用户输入的账号、密码
+                let account = $("#account").val();
+                let pwd = $("#pwd").val();
+                console.log(account,pwd);
+            }
+        </script>
+
+        <button onclick="login()">登录</button>
     </div>
 </div>
 <!--登录结束-->
 
 <!-- 底部栏开始 -->
-<div class="footer flux" style="position: relative;top: 50px;">
+<div class="footer flux" style="position: relative;top: 150px;">
     <div class="f1 container">
         <ul>
             <li>
