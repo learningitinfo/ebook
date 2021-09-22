@@ -90,7 +90,13 @@
                         "pwd":pwd
                     },
                     success:function (res) {
-                        console.log(res)
+                        if (res.status == 'LOGIN_SUCCESS'){
+                            //跳转页面  跳到首页
+                            window.location.href = 'index.html';
+                        }else if (res.status == 'LOGIN_FAIL'){
+                            //登录失败，显示提示信息
+                            alert(res.message);
+                        }
                     }
                 });
             }
