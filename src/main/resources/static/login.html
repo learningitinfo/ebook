@@ -53,19 +53,23 @@
 <!-- 头部结束 -->
 
 <!--登录开始-->
-<div class="container main">
-    <!--账号输入框-->
-    <input type="text" name="account">
-    <br>
-    <!--密码-->
-    <input type="password" name="pwd">
-    <br>
-    <input type="submit" value="登录">
+<div class="container">
+    <div style="position: relative;top: 100px;">
+        <!--账号输入框-->
+        <input type="text" name="account">
+        <br>
+        <!--密码-->
+        <input type="password" name="pwd">
+        <br>
+        <input type="submit" value="登录">
+        <!--当用户输入完账号、密码之后提交数据，得到后台返回的结果，结果有两种情况：
+        第一种登录成功，跳转到首页；第二种中失败，提示账号或者密码有误，要重新输入-->
+    </div>
 </div>
 <!--登录结束-->
 
 <!-- 底部栏开始 -->
-<div class="footer flux">
+<div class="footer flux" style="position: relative;top: 50px;">
     <div class="f1 container">
         <ul>
             <li>
