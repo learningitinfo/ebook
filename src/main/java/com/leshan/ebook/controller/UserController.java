@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/user")
@@ -17,11 +18,13 @@ public class UserController {
     @Resource
     private UserService userService;
 
-    @RequestMapping("/login")
-    @ResponseBody
     //在controller方法的参数列表中，可以指定多个参数，用于接收不同的数据，但是要注意：形参的名字
     //需要与前端对应的参数名相同
-    public ResponseResult login(String account,String pwd){
+    //如果在controller的方法上需要request、response、session、context对象，只需要在参数列表指定对应的参数
+    //然后springboot会自动将对应的对象传递给该方法，那么在方法中直接拿来用即可
+    @RequestMapping("/login")
+    @ResponseBody
+    public ResponseResult login(String account, String pwd, HttpSession session){
         //打印：测试是否能够正常获取到账号、密码
         System.out.println(account+","+pwd);
 
@@ -37,6 +40,10 @@ public class UserController {
             if (pwd.equals(user.getPassword())){
                 //账号密码都对，表示登录成功
                 System.out.println("登录成功!");
+
+                //将用户的id存放到session中，表示用户登录了
+                session.setAttribute("userid",user.getId());
+
                 //设置返回的数据
                 responseResult.setCode(200);
                 responseResult.setStatus(Status.LOGIN_SUCCESS);
