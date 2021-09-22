@@ -1,5 +1,6 @@
 package com.leshan.ebook.controller;
 
+import com.leshan.ebook.enums.Status;
 import com.leshan.ebook.mybatis.entity.User;
 import com.leshan.ebook.service.UserService;
 import com.leshan.ebook.utils.ResponseResult;
@@ -28,17 +29,28 @@ public class UserController {
         //如果能够查询到结果，说明账号是存在的，然后用查询出的密码与用户提交的密码进行比对，如果
         //密码一致，说明账号密码都正确，即登录成功
         User user = userService.findByAccount(account);
+        //
+        ResponseResult responseResult = new ResponseResult();
         //判断
         if (user != null){
             //判断密码
             if (pwd.equals(user.getPassword())){
                 //账号密码都对，表示登录成功
                 System.out.println("登录成功!");
-                return null;
+                //设置返回的数据
+                responseResult.setCode(200);
+                responseResult.setStatus(Status.LOGIN_SUCCESS);
+                responseResult.setMessage("登录成功");
+                //
+                return responseResult;
             }
         }
-        System.out.println("登录失败");
 
-        return null;
+        System.out.println("登录失败");
+        responseResult.setCode(500);
+        responseResult.setStatus(Status.LOGIN_FAIL);
+        responseResult.setMessage("账号或密码有误!");
+        //
+        return responseResult;
     }
 }
