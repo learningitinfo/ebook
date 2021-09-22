@@ -83,6 +83,16 @@
                 }
 
                 //3.提交数据
+                $.ajax({
+                    url:"user/login",
+                    data:{
+                        "account":account,
+                        "pwd":pwd
+                    },
+                    success:function (res) {
+                        console.log(res)
+                    }
+                });
             }
         </script>
 
