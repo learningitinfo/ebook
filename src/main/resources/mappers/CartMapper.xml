@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace的值必须与对应mapper接口的全名一致-->
+<mapper namespace="com.leshan.ebook.mapper.CartMapper">
+
+    <!--通过用户id、商品id查询购物车信息-->
+    <select id="findByUseridAndGoodsid" resultType="Cart">
+        select id from mall_cart where userid = #{userid} and goodsid = #{goodsid}
+    </select>
+
+    <!--根据购物车id更新商品数量-->
+    <update id="updateCart">
+        update mall_cart set nums = nums + #{nums} where id = #{id}
+    </update>
+
+    <!--添加一条购物车信息-->
+    <!--now():获取当前数据库时间-->
+    <insert id="addCart">
+        insert into mall_cart values(default,#{userid},#{goodsid},#{price},#{nums},now())
+    </insert>
+
+</mapper>
