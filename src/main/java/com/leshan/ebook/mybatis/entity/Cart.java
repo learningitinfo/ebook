@@ -8,6 +8,7 @@ import java.util.Date;
 @Data
 public class Cart {
     private int id;             //id
+    private int userid;         //用户id
     private int goodsid;        //商品id
     private BigDecimal price;   //商品的价格
     private int nums;           //商品数量
