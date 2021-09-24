@@ -21,4 +21,14 @@
         insert into mall_cart values(default,#{userid},#{goodsid},#{price},#{nums},now())
     </insert>
 
+
+    <!--通过用户id查询购物车信息-->
+    <select id="findByUserId" resultMap="cartDtoMap">
+        select c.id,c.goodsid,c.price,c.nums,g.name,g.image,g.salesprice
+            from mall_cart c,mall_goods g where c.goodsid = g.id and c.userid = #{userid}
+    </select>
+    <!--手动指定结果集字段与属性的对应关系-->
+    <resultMap id="cartDtoMap" type="CartDto">
+
+    </resultMap>
 </mapper>

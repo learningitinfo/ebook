@@ -2,10 +2,12 @@ package com.leshan.ebook.service.impl;
 
 import com.leshan.ebook.mapper.CartMapper;
 import com.leshan.ebook.mybatis.entity.Cart;
+import com.leshan.ebook.mybatis.entity.dto.CartDto;
 import com.leshan.ebook.service.CartService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -28,5 +30,14 @@ public class CartServiceImpl implements CartService {
         }
         //根据flag的值返回不同的结果，如果flag>0返回true，表示操作成功
         return flag > 0 ? true : false;
+    }
+
+    //
+
+    @Override
+    public List<CartDto> findByUserId(int userid) {
+        //
+
+        return cartMapper.findByUserId(userid);
     }
 }

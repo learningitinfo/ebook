@@ -1,8 +1,11 @@
 package com.leshan.ebook.mapper;
 
 import com.leshan.ebook.mybatis.entity.Cart;
+import com.leshan.ebook.mybatis.entity.dto.CartDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 @Mapper
 public interface CartMapper {
@@ -15,4 +18,7 @@ public interface CartMapper {
 
     //3.新增一条数据
     public int addCart(Cart cart);
+
+    //4.通过用户id查询购物车信息
+    public List<CartDto> findByUserId(int userid);
 }

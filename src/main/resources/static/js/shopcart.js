@@ -35,6 +35,18 @@ let  shopcartListData=[
 ]
 //当页面加载的时候调用
 window.onload=function(){
+    //1.发送请求得到当前用户的购物车信息
+    $.ajax({
+        url:"cart/find",
+        type:"get",
+        success:function (res) {
+            console.log(res);
+        }
+    });
+    //2.得到之后将数据渲染页面上
+
+    //3.计算总价
+
     //调用渲染方法显示购物车信息
     renderCartList(shopcartListData);
     //调用计算总价格的方法

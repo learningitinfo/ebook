@@ -3,6 +3,7 @@ package com.leshan.ebook;
 import com.leshan.ebook.mapper.GoodsMapper;
 import com.leshan.ebook.mybatis.entity.Goods;
 import com.leshan.ebook.mybatis.entity.dto.GoodsDto;
+import com.leshan.ebook.service.CartService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -38,6 +39,17 @@ class EbookApplicationTests {
     void findHotTest(){
         List<GoodsDto> goodsList = goodsMapper.findHot();
         System.out.println(goodsList);
+    }
+
+    /*
+        测试购物车信息
+     */
+    @Resource
+    private CartService cartService;
+
+    @Test
+    void cart(){
+        System.out.println(cartService.findByUserId(1));
     }
 
 }

@@ -42,4 +42,16 @@ public class CartController {
 
         return responseResult;
     }
+
+    //查询当前用户购物车信息
+    @RequestMapping("/find")
+    @ResponseBody
+    public ResponseResult find(HttpSession session){
+        //1.通过session得到当前用户id
+        int userid = (Integer)session.getAttribute("userid");
+
+        //2.通过userid作为查询条件调用CartService对应方法得到购物车信息
+
+        return null;
+    }
 }
