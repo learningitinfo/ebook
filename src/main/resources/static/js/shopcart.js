@@ -175,23 +175,21 @@ function getTotalPrice(){
    `;
 }
 
-//选中商品信息
+//商品复选框点击事件
 function selectGood(goodsno){
-    //定义变量，用来记录选择的商品在商品列表中的位置(下标)
-    let count;
-    shopcartListData.forEach((item,index)=>{
-        if(item.goodsno==goodsno){
-            count=index;
-        }
-    })
-    if(shopcartListData[count].checked){
-        shopcartListData[count].checked=false;
-    }else{
-        shopcartListData[count].checked=true;
+    //1.获取到当前付复选框
+
+    //2.判断复选框的状态
+    if (false){
+        //没勾选
+        //2.1.权限状态改为非勾选
+
+
+    }else {
+        //勾选上
+        //判断是否所有的商品都勾选上，如果是将所有商品复选框改为勾选状态
     }
-    //在调用一次计算
-    getTotalPrice();
-    //计算已经选择到的商品个数
-    let selectedCount=shopcartListData.filter(item=>item.checked).length;
-    document.querySelector('#selectedcount').innerHTML=selectedCount;
+
+    //3.重新计算总价
+    totalPrice();
 }
