@@ -45,13 +45,15 @@ window.onload=function(){
             //2.得到之后将数据渲染页面上
             //调用渲染方法显示购物车信息
             renderCartList(res.data);
+
+            //3.计算总价
+            //将获得的数据赋值给全局变量
+            shopcartListData = res.data;
+
+            //调用计算总价格的方法
+            getTotalPrice();
         }
     });
-
-
-    //3.计算总价
-    //调用计算总价格的方法
-    getTotalPrice();
 }
 //渲染购物车列表信息
 function renderCartList(shopcartListData){
@@ -96,7 +98,8 @@ function renderCartList(shopcartListData){
                     <span class="opr">+</span>
                 </td>
                 <td>
-                    <span class="totalprice">￥${item.goods.salesprice*item.nums}</span>
+                    <!--toFixed指定保留小数点后几位，会进行四舍五入-->
+                    <span class="totalprice">￥${(item.goods.salesprice * item.nums).toFixed(1)}</span>
                 </td>
                 <td>
                     <a href="#">删除</a>
@@ -146,10 +149,9 @@ function checkAll(){
     获取总价格
 */
 function getTotalPrice(){
-   let totalprice=shopcartListData.filter(item=>item.checked).reduce((prev,cur)=>prev+cur.salesprice*cur.nums,0);
    document.querySelector('#totalprice').innerHTML=`
         <span>已选择</span><span id='selectedcount'>0</span><span>件商品</span>
-        总价:<span class='pr'>￥${totalprice}</span>
+        总价:<span class='pr'>￥0</span>
         <button class='btn'>去结算</button>
    `;
 }
