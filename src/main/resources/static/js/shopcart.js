@@ -35,6 +35,7 @@ let  shopcartListData=[
 ]
 //当页面加载的时候调用
 window.onload=function(){
+    console.log("发送请求获取购物车信息")
     //1.发送请求得到当前用户的购物车信息
     $.ajax({
         url:"cart/find",

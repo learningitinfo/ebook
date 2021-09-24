@@ -1,6 +1,8 @@
 package com.leshan.ebook.controller;
 
+import com.leshan.ebook.enums.Status;
 import com.leshan.ebook.mybatis.entity.Cart;
+import com.leshan.ebook.mybatis.entity.dto.CartDto;
 import com.leshan.ebook.service.CartService;
 import com.leshan.ebook.utils.ResponseResult;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("/cart")
@@ -51,7 +54,16 @@ public class CartController {
         int userid = (Integer)session.getAttribute("userid");
 
         //2.通过userid作为查询条件调用CartService对应方法得到购物车信息
+        List<CartDto> cartDtos = cartService.findByUserId(userid);
 
-        return null;
+        //3.封装数据
+        ResponseResult responseResult = new ResponseResult();
+        responseResult.setCode(200);
+        responseResult.setStatus(Status.REQUEST_SUCCESS);
+        responseResult.setMessage("获取数据成功");
+        responseResult.setData(cartDtos);
+
+        //返回数据
+        return responseResult;
     }
 }
