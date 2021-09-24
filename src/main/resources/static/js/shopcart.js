@@ -42,14 +42,14 @@ window.onload=function(){
         type:"get",
         success:function (res) {
             console.log(res);
+            //2.得到之后将数据渲染页面上
+            //调用渲染方法显示购物车信息
+            renderCartList(res.data);
         }
     });
-    //2.得到之后将数据渲染页面上
+
 
     //3.计算总价
-
-    //调用渲染方法显示购物车信息
-    renderCartList(shopcartListData);
     //调用计算总价格的方法
     getTotalPrice();
 }
@@ -77,17 +77,18 @@ function renderCartList(shopcartListData){
     for(let item of shopcartListData){
         let tableBodyTr=`
             <tr>
-                <td><input type='checkbox' ${item.checked?"checked":""} onclick="selectGood(${item.goodsno})"/></td>
+                <!--绑定的是购物车id-->
+                <td><input type='checkbox' onclick="selectGood(${item.id})"/></td>
                 <td>
                    <div class="shopimg">
-                       <img src='${item.image}'>
+                       <img src='${item.goods.image}'>
                    </div>
                 </td>
                 <td>
-                    ${item.name}
+                    ${item.goods.name}
                 </td>
                 <td>
-                    <span class="price">￥${item.salesprice}</span>
+                    <span class="price">￥${item.goods.salesprice}</span>
                 </td>
                 <td>
                     <span class="opr">-</span>
@@ -95,7 +96,7 @@ function renderCartList(shopcartListData){
                     <span class="opr">+</span>
                 </td>
                 <td>
-                    <span class="totalprice">￥${item.salesprice*item.nums}</span>
+                    <span class="totalprice">￥${item.goods.salesprice*item.nums}</span>
                 </td>
                 <td>
                     <a href="#">删除</a>
