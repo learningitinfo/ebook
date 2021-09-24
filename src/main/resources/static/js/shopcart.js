@@ -80,7 +80,7 @@ function renderCartList(shopcartListData){
         let tableBodyTr=`
             <tr>
                 <!--绑定的是购物车id-->
-                <td><input type='checkbox' onclick="selectGood(${item.id})"/></td>
+                <td><input type='checkbox' onclick="selectGood(${item.id})" class="checkbox"/></td>
                 <td>
                    <div class="shopimg">
                        <img src='${item.goods.image}'>
@@ -117,26 +117,25 @@ function renderCartList(shopcartListData){
 //全选功能
 function checkAll(){ 
     let flag=document.querySelector("#selectAll").checked;
+
+    //先找到所有的购物车复选框
+    //console.log(document.querySelector(".checkbox"));
+    //利用jQuery通过类找到所有的复选框
+    let carts = $(".checkbox");
+
     if(flag){
-        let all=[];
-        for(let item of shopcartListData){
-            item.checked=true;
-            all.push(item);
-        }
-        shopcartListData=all;
-        //调用购物车列表渲染方法
-        renderCartList(shopcartListData);
+        //表明全选复选框被勾选
+        //1.找到其他的复选框，让全部改为勾选状态
+        carts.prop("checked",true);   //批量勾选
+
+        //2.重新计算被勾选商品的数量、总价
+
         document.querySelector("#selectAll").nextElementSibling.innerHTML="反选";
         document.querySelector("#selectAll").checked=true;
     }else{
-        let all=[];
-        for(let item of shopcartListData){
-            item.checked=false;
-            all.push(item);
-        }
-        shopcartListData=all;
-        //调用购物车列表渲染方法
-        renderCartList(shopcartListData);
+        //取消全部勾选
+        carts.prop("checked",false);  //批量取消
+
         document.querySelector("#selectAll").nextElementSibling.innerHTML="全选";
         document.querySelector("#selectAll").checked=false;
     }
