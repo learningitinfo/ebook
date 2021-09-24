@@ -139,18 +139,38 @@ function checkAll(){
         document.querySelector("#selectAll").nextElementSibling.innerHTML="全选";
         document.querySelector("#selectAll").checked=false;
     }
-    getTotalPrice();
-    //计算已经选择到的商品个数
-    let selectedCount=shopcartListData.filter(item=>item.checked).length;
-    document.querySelector('#selectedcount').innerHTML=selectedCount;
+    //计算总价
+    totalPrice();
 }
+function totalPrice() {
+    let count = 0;  //统计被勾选商品的数量
+    let total = 0;  //统计总价
+
+    //先获取到所有的复选框，判断复选框的勾选状态，如果勾选上那么总价中需要包含当前商品的小计，同时
+    //勾选商品的数量应该+1
+    let carts = $(".checkbox");  //数组
+    for(let i = 0;i < carts.length;i++){
+        let cart = $(carts[i]);   //在通过下标得到对象时得到的是js对象，需要转换成jQuery对象才行
+        if (cart.prop("checked")){
+            count += 1;     //购买数量+1
+            total += shopcartListData[i].nums * shopcartListData[i].goods.salesprice;
+        }
+    }
+    //调整总价精度
+    total = total.toFixed(1);
+
+    //将商品的数量、总价显示在标签上
+    $("#selectedcount").text(count);
+    $("#total").text("￥"+total);
+}
+
 /*
     获取总价格
 */
 function getTotalPrice(){
    document.querySelector('#totalprice').innerHTML=`
         <span>已选择</span><span id='selectedcount'>0</span><span>件商品</span>
-        总价:<span class='pr'>￥0</span>
+        总价:<span class='pr' id="total">￥0</span>
         <button class='btn'>去结算</button>
    `;
 }
