@@ -80,7 +80,10 @@ function renderCartList(shopcartListData){
         let tableBodyTr=`
             <tr>
                 <!--绑定的是购物车id-->
-                <td><input type='checkbox' onclick="selectGood(${item.id})" class="checkbox"/></td>
+                <td>
+                    <input type='checkbox' 
+                        onclick="selectGood(${item.id})" class="checkbox" id="${item.id}"/>
+                </td>
                 <td>
                    <div class="shopimg">
                        <img src='${item.goods.image}'>
@@ -176,18 +179,29 @@ function getTotalPrice(){
 }
 
 //商品复选框点击事件
-function selectGood(goodsno){
+function selectGood(id){
     //1.获取到当前付复选框
+    let checkbox = $("#"+id);
 
     //2.判断复选框的状态
-    if (false){
+    if (!checkbox.prop("checked")){
         //没勾选
         //2.1.权限状态改为非勾选
-
-
+        document.querySelector("#selectAll").nextElementSibling.innerHTML="全选";
+        document.querySelector("#selectAll").checked=false;
     }else {
         //勾选上
         //判断是否所有的商品都勾选上，如果是将所有商品复选框改为勾选状态
+        let carts = $(".checkbox");
+        for(let i=0;i < carts.length; i++){
+            let cart = $(carts[i]);
+            if (!cart.prop("checked")){
+                return;     //只要有一个没有勾选上，直接结束
+            }
+        }
+        //如果代码执行到此处代表：所有的购物车商品都被勾选上了
+        document.querySelector("#selectAll").nextElementSibling.innerHTML="反选";
+        document.querySelector("#selectAll").checked=true;
     }
 
     //3.重新计算总价
