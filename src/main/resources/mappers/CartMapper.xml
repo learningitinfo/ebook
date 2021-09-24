@@ -29,6 +29,16 @@
     </select>
     <!--手动指定结果集字段与属性的对应关系-->
     <resultMap id="cartDtoMap" type="CartDto">
-
+        <id column="id" property="id"></id>
+        <result column="goodsid" property="goodsid"></result>
+        <result column="price" property="price"></result>
+        <result column="nums" property="nums"></result>
+        <!--商品数据-->
+        <association property="goods" javaType="CartGoodsDto">
+            <id column="goodsid" property="id"></id>
+            <result column="name" property="name"></result>
+            <result column="image" property="image"></result>
+            <result column="salesprice" property="salesprice"></result>
+        </association>
     </resultMap>
 </mapper>
