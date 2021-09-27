@@ -102,7 +102,7 @@ function renderCartList(shopcartListData){
                 </td>
                 <td>
                     <!--toFixed指定保留小数点后几位，会进行四舍五入-->
-                    <span class="totalprice">￥${(item.goods.salesprice * item.nums).toFixed(1)}</span>
+                    <span class="totalprice" id="sm_total${item.id}">￥${(item.goods.salesprice * item.nums).toFixed(1)}</span>
                 </td>
                 <td>
                     <a href="#">删除</a>
@@ -146,6 +146,7 @@ function changeNum(num,id) {// 1  -1
             if (res.status == 'REQUEST_SUCCESS'){
                 console.log("修改成功");
                 //修改前端数据：当前购物车的数量，总价
+                //3.1
                 //通过id选择器找到对应的输入框
                 let input = $("#input"+id);
                 let nums = parseInt(input.val());
@@ -153,6 +154,23 @@ function changeNum(num,id) {// 1  -1
                 nums = nums + num;
                 //再设置到输入框
                 input.val(nums);
+
+                //3.2.重新计算当前购物车对应的小计 = 当前商品数量 * 单价
+                //修改全局数组中对应购物车的数量
+                for(let i=0;i<shopcartListData.length;i++){
+                    let cart = shopcartListData[i];
+                    if (cart.id == id){
+                        cart.nums = nums;
+                        //小计
+                        let sm_total = cart.nums * cart.goods.salesprice;
+                        sm_total = sm_total.toFixed(1); //处理精度
+                        //将小计渲染到对应的标签上
+                        $("#sm_total"+id).text("￥"+sm_total);
+                        break;
+                    }
+                }
+
+
             }
         }
     });
