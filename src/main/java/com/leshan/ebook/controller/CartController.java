@@ -72,7 +72,8 @@ public class CartController {
     @ResponseBody
     public ResponseResult update(Cart cart){
         //测试是否能得到前端提交的数据
-        System.out.println(cart);
+
+        cartService.update(cart);
 
         return null;
     }

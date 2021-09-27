@@ -40,4 +40,13 @@ public class CartServiceImpl implements CartService {
 
         return cartMapper.findByUserId(userid);
     }
+
+    @Override
+    public boolean update(Cart cart) {
+        //调用mapper相关方法
+        int result = cartMapper.updateCart(cart.getId(),cart.getNums());
+
+        //根据结果返回bool值
+        return result > 0 ? true : false;
+    }
 }

@@ -11,4 +11,7 @@ public interface CartService {
 
     //通过userid得到用户购物车信息
     public List<CartDto> findByUserId(int userid);
+
+    //更新购物车数量
+    public boolean update(Cart cart);
 }
