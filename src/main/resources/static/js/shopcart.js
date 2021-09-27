@@ -78,7 +78,7 @@ function renderCartList(shopcartListData){
     let tablebody='';
     for(let item of shopcartListData){
         let tableBodyTr=`
-            <tr>
+            <tr id="tr_${item.id}">
                 <!--绑定的是购物车id-->
                 <td>
                     <input type='checkbox' 
@@ -89,7 +89,7 @@ function renderCartList(shopcartListData){
                        <img src='${item.goods.image}'>
                    </div>
                 </td>
-                <td>
+                <td style="width: 40%;">
                     ${item.goods.name}
                 </td>
                 <td>
@@ -124,6 +124,11 @@ function del(id) {
         url:"cart/del?id="+id,
         success:function (res) {
             console.log(res);
+            if (res.status = 'REQUEST_SUCCESS'){
+                //删除页面上对应的购物车信息
+                //通过id选择器找到对应的tr删除
+                $("#tr_"+id).remove();   //将自己及所有子标签从页面上删除
+            }
         }
     });
 }

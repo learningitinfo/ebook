@@ -135,7 +135,7 @@
                         //得到商品id、购买数量、销售价格
                         let id = window.location.href.split("=")[1];
                         let num = $("#num").val();
-                        let price = $("#salesprice").text();
+                        let price = $("#salesprice").text().split("￥")[0];
 
                         console.log(id,num,price);
 
