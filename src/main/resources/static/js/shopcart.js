@@ -169,8 +169,8 @@ function changeNum(num,id) {// 1  -1
                         break;
                     }
                 }
-
-
+                //3.3.计算总价
+                totalPrice();
             }
         }
     });
@@ -253,15 +253,19 @@ function selectGood(id){
         //勾选上
         //判断是否所有的商品都勾选上，如果是将所有商品复选框改为勾选状态
         let carts = $(".checkbox");
+        let flag = false;
         for(let i=0;i < carts.length; i++){
             let cart = $(carts[i]);
             if (!cart.prop("checked")){
-                return;     //只要有一个没有勾选上，直接结束
+                flag = true;
+                break;     //只要有一个没有勾选上，直接结束
             }
         }
         //如果代码执行到此处代表：所有的购物车商品都被勾选上了
-        document.querySelector("#selectAll").nextElementSibling.innerHTML="反选";
-        document.querySelector("#selectAll").checked=true;
+        if (!flag){
+            document.querySelector("#selectAll").nextElementSibling.innerHTML="反选";
+            document.querySelector("#selectAll").checked=true;
+        }
     }
 
     //3.重新计算总价
