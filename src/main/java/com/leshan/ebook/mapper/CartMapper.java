@@ -24,4 +24,7 @@ public interface CartMapper {
 
     //5.删除购物车
     public int del(int id);
+
+    //6.通过ids查询购物车信息
+    public List<CartDto> findByIds(int[] ids);
 }

@@ -17,4 +17,7 @@ public interface CartService {
 
     //删除购物车信息
     public boolean del(int id);
+
+    //通过多个购物车id查询出对应的商品信息
+    public List<CartDto> findByIds(int[] ids);
 }

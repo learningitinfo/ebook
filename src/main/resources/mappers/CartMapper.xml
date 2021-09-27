@@ -47,5 +47,17 @@
         delete from mall_cart where id = #{id}
     </delete>
 
+    <!--通过ids查询购物车信息-->
+    <select id="findByIds" resultMap="cart_ids_map">
+        select c.id,c.nums,c.goodsid,g.name,g.image,g.salesprice
+            from mall_cart c,mall_goods g
+            where c.goodsid = g.id and c.id in
+            <foreach collection="array" item="id" open="(" close=")" separator=",">
+                #{id}
+            </foreach>
+    </select>
+    <resultMap id="" type="CartDto">
+
+    </resultMap>
 
 </mapper>

@@ -55,4 +55,11 @@ public class CartServiceImpl implements CartService {
         //调用mapper删除数据
         return cartMapper.del(id) > 0 ? true : false;
     }
+
+    @Override
+    public List<CartDto> findByIds(int[] ids) {
+        //掉mapper的方法
+
+        return null;
+    }
 }

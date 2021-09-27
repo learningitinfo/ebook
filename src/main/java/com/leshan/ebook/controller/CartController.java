@@ -114,9 +114,12 @@ public class CartController {
     @RequestMapping("/byids")
     @ResponseBody
     public ResponseResult byids(int[] ids){
-        for (int i = 0; i < ids.length; i++) {
-            System.out.println(ids[i]);
-        }
+//        for (int i = 0; i < ids.length; i++) {
+//            System.out.println(ids[i]);
+//        }
+        //调用service找到对应购物车的商品信息
+
+
         return null;
     }
 
