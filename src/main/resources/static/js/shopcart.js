@@ -121,7 +121,7 @@ function renderCartList(shopcartListData){
 //修改数量
 function changeNum(num,id) {// 1  -1
     console.log(num,id)
-    //判断是+还是-
+    //1.判断是+还是-
     if (num == -1){
         console.log("减操作");
         //减：判断当前商品的数量是否已经是1了，因为最少应该购买一件
@@ -133,6 +133,17 @@ function changeNum(num,id) {// 1  -1
             return; //不执行其它操作
         }
     }
+    //2.发送请求让后台修改当前购物车的商品数量
+    $.ajax({
+        url: "cart/update",
+        data:{
+            "id":id,
+            "nums":num      //1 -1
+        },
+        success:function (res) {
+            console.log(res);
+        }
+    });
 }
 
 

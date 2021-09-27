@@ -66,4 +66,14 @@ public class CartController {
         //返回数据
         return responseResult;
     }
+
+    //修改购物车数量
+    @RequestMapping("/update")
+    @ResponseBody
+    public ResponseResult update(Cart cart){
+        //测试是否能得到前端提交的数据
+        System.out.println(cart);
+
+        return null;
+    }
 }
