@@ -250,9 +250,35 @@ function getTotalPrice(){
    document.querySelector('#totalprice').innerHTML=`
         <span>已选择</span><span id='selectedcount'>0</span><span>件商品</span>
         总价:<span class='pr' id="total">￥0</span>
-        <button class='btn'>去结算</button>
+        <button class='btn' onclick="pay()">去结算</button>
    `;
 }
+//去结算
+function pay() {
+    let ids = [];   //记录被勾选购物车的id
+    //1.找到所有的复选框
+    let carts = $(".checkbox");
+    //遍历
+    for(let i = 0;i < carts.length;i++){
+        let cart = $(carts[i]);
+        if (cart.prop("checked")){
+            //将当前购物车的id放到ids中
+            ids.push(shopcartListData[i].id);
+        }
+    }
+
+    console.log(ids);
+
+    //1.判断哪些购物车被勾选，如果没有勾选任何一个提示然后接收操作
+
+
+
+    //2.有勾选则发送请求执行下订单操作
+    //提交的数据：购物车id（多个）
+
+
+}
+
 
 //商品复选框点击事件
 function selectGood(id){
