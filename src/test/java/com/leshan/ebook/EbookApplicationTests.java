@@ -52,4 +52,10 @@ class EbookApplicationTests {
         System.out.println(cartService.findByUserId(1));
     }
 
+    //ids
+    @Test
+    void ids(){
+        int[] ids = {94,95};
+        System.out.println(cartService.findByIds(ids));
+    }
 }

@@ -56,8 +56,17 @@
                 #{id}
             </foreach>
     </select>
-    <resultMap id="" type="CartDto">
-
+    <resultMap id="cart_ids_map" type="CartDto">
+        <id column="id" property="id"></id>
+        <result column="goodsid" property="goodsid"></result>
+        <result column="nums" property="nums"></result>
+        <!--商品数据-->
+        <association property="goods" javaType="CartGoodsDto">
+            <id column="goodsid" property="id"></id>
+            <result column="name" property="name"></result>
+            <result column="image" property="image"></result>
+            <result column="salesprice" property="salesprice"></result>
+        </association>
     </resultMap>
 
 </mapper>

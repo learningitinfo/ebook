@@ -60,6 +60,6 @@ public class CartServiceImpl implements CartService {
     public List<CartDto> findByIds(int[] ids) {
         //掉mapper的方法
 
-        return null;
+        return cartMapper.findByIds(ids);
     }
 }
