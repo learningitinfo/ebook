@@ -109,4 +109,15 @@ public class CartController {
 
         return responseResult;
     }
+
+    //通过购物车id得到商品数据
+    @RequestMapping("/byids")
+    @ResponseBody
+    public ResponseResult byids(int[] ids){
+        for (int i = 0; i < ids.length; i++) {
+            System.out.println(ids[i]);
+        }
+        return null;
+    }
+
 }

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery.min.js"></script>
+</head>
+<body>
+
+
+<script>
+    //得到购物车的id
+    let ids = window.location.href.split("=")[1];
+    console.log(ids);
+
+    //1.提交ids，通过ids查出对应的商品信息
+    $.ajax({
+        url: "cart/byids",
+        data:{
+            "ids":ids  //1,2,3,4
+        },
+        success:function (res) {
+
+        }
+    });
+
+</script>
+</body>
+</html>

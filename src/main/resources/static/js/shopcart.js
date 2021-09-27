@@ -270,13 +270,14 @@ function pay() {
     console.log(ids);
 
     //1.判断哪些购物车被勾选，如果没有勾选任何一个提示然后接收操作
+    if (ids.length == 0){
+        alert("请选择您要买的商品");
+        return;
+    }
 
 
-
-    //2.有勾选则发送请求执行下订单操作
-    //提交的数据：购物车id（多个）
-
-
+    //2.跳转到下单页面：罗列商品信息、罗列收货地址、支付方式
+    window.location.href = 'orderpre.html?ids='+ids.join(","); //以逗号作为分隔符拼接数组的元素
 }
 
 
