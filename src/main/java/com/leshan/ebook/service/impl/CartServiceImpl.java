@@ -49,4 +49,10 @@ public class CartServiceImpl implements CartService {
         //根据结果返回bool值
         return result > 0 ? true : false;
     }
+
+    @Override
+    public boolean del(int id) {
+        //调用mapper删除数据
+        return cartMapper.del(id) > 0 ? true : false;
+    }
 }

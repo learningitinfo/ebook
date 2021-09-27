@@ -41,4 +41,11 @@
             <result column="salesprice" property="salesprice"></result>
         </association>
     </resultMap>
+
+    <!--删除-->
+    <delete id="del">
+        delete from mall_cart where id = #{id}
+    </delete>
+
+
 </mapper>

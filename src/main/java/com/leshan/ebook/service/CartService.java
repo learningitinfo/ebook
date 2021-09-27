@@ -14,4 +14,7 @@ public interface CartService {
 
     //更新购物车数量
     public boolean update(Cart cart);
+
+    //删除购物车信息
+    public boolean del(int id);
 }

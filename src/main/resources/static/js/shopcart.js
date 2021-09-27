@@ -105,7 +105,7 @@ function renderCartList(shopcartListData){
                     <span class="totalprice" id="sm_total${item.id}">￥${(item.goods.salesprice * item.nums).toFixed(1)}</span>
                 </td>
                 <td>
-                    <a href="#">删除</a>
+                    <span onclick="del(${item.id})">删除</span>
                 </td>
             </tr>
         `
@@ -117,6 +117,17 @@ function renderCartList(shopcartListData){
     let tableInfo=tableStart+tableHeader+tablebody+tableEnd+totalpriceArea;
     document.querySelector("#shopcartarea").innerHTML=tableInfo;
 }
+//删除购物车
+function del(id) {
+    //发送请求删除数据
+    $.ajax({
+        url:"cart/del?id="+id,
+        success:function (res) {
+            console.log(res);
+        }
+    });
+}
+
 
 //修改数量
 function changeNum(num,id) {// 1  -1

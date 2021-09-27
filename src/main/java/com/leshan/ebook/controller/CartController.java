@@ -87,4 +87,26 @@ public class CartController {
 
         return responseResult;
     }
+
+    //通过id删除购物车
+    @RequestMapping("/del")
+    @ResponseBody
+    public ResponseResult del(int id){
+        System.out.println(id);
+        //调用service删除数据
+        ResponseResult responseResult = new ResponseResult();
+        if (cartService.del(id)){
+            //删除成功
+            responseResult.setCode(200);
+            responseResult.setStatus(Status.REQUEST_SUCCESS);
+            responseResult.setMessage("删除成功");
+        }else {
+            //删除失败
+            responseResult.setCode(500);
+            responseResult.setStatus(Status.REQUEST_FAIL);
+            responseResult.setMessage("删除失败，请稍后再试");
+        }
+
+        return responseResult;
+    }
 }

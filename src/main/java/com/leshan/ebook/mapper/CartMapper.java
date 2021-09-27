@@ -21,4 +21,7 @@ public interface CartMapper {
 
     //4.通过用户id查询购物车信息
     public List<CartDto> findByUserId(int userid);
+
+    //5.删除购物车
+    public int del(int id);
 }
