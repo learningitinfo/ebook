@@ -8,7 +8,7 @@
 <body>
 <!--购买的商品信息-->
 <div>
-    <table id="goodslist">
+    <table id="goodslist" border="1px;">
         <tr>
             <th>图片</th>
             <th>商品名称</th>
@@ -39,10 +39,24 @@
                     //将图片放到td
                     image_td.append(image);
 
+                    //名称
+                    let name_td = $("<td></td>").text(cart.goods.name);
+                    //单价
+                    let price_td = $("<td></td>").text(cart.goods.salesprice);
+                    //数量
+                    let nums_td = $("<td></td>").text(cart.nums);
+                    //小计
+                    let sm_total = $("<td></td>").text(cart.nums * cart.goods.salesprice);
+
                     //创建tr
                     let tr = $("<tr></tr>");
+
                     //将td放到tr上
                     tr.append(image_td);
+                    tr.append(name_td);
+                    tr.append(price_td);
+                    tr.append(nums_td);
+                    tr.append(sm_total);
 
                     //将tr放到表格上
                     $("#goodslist").append(tr);
@@ -50,6 +64,8 @@
             }
         }
     });
+    //2.发送请求获取当前用户的收货地址
+
 
 </script>
 </body>
