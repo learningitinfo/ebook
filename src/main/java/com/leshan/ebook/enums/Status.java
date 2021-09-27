@@ -5,5 +5,5 @@ public enum Status {
     LOGIN_SUCCESS,      //登录成功
     LOGIN_FAIL,         //登录失败
     REQUEST_SUCCESS,    //请求成功
-    REQUET_FAIL         //请求失败
+    REQUEST_FAIL         //请求失败
 }

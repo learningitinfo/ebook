@@ -97,7 +97,7 @@ function renderCartList(shopcartListData){
                 </td>
                 <td>
                     <span class="opr" onclick="changeNum(-1,${item.id})">-</span>
-                     <input type='number' value="${item.nums}" class="inpunum" id="input${item.id}"/>
+                     <input type='' value="${item.nums}" class="inpunum" id="input${item.id}"/>
                     <span class="opr" onclick="changeNum(1,${item.id})">+</span>
                 </td>
                 <td>
@@ -142,6 +142,18 @@ function changeNum(num,id) {// 1  -1
         },
         success:function (res) {
             console.log(res);
+            //根据结果修改前端页面上的数量
+            if (res.status == 'REQUEST_SUCCESS'){
+                console.log("修改成功");
+                //修改前端数据：当前购物车的数量，总价
+                //通过id选择器找到对应的输入框
+                let input = $("#input"+id);
+                let nums = parseInt(input.val());
+                //修改数据
+                nums = nums + num;
+                //再设置到输入框
+                input.val(nums);
+            }
         }
     });
 }

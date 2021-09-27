@@ -72,9 +72,19 @@ public class CartController {
     @ResponseBody
     public ResponseResult update(Cart cart){
         //测试是否能得到前端提交的数据
+        boolean result = cartService.update(cart);
+        //
+        ResponseResult responseResult = new ResponseResult();
+        if (result){
+            responseResult.setCode(200);
+            responseResult.setMessage("修改成功");
+            responseResult.setStatus(Status.REQUEST_SUCCESS);
+        }else {
+            responseResult.setCode(500);
+            responseResult.setMessage("修改失败");
+            responseResult.setStatus(Status.REQUEST_FAIL);
+        }
 
-        cartService.update(cart);
-
-        return null;
+        return responseResult;
     }
 }
