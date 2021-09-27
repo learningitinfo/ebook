@@ -6,7 +6,18 @@
     <script src="js/jquery.min.js"></script>
 </head>
 <body>
-
+<!--购买的商品信息-->
+<div>
+    <table id="goodslist">
+        <tr>
+            <th>图片</th>
+            <th>商品名称</th>
+            <th>单价</th>
+            <th>数量</th>
+            <th>小计</th>
+        </tr>
+    </table>
+</div>
 
 <script>
     //得到购物车的id
@@ -21,6 +32,22 @@
         },
         success:function (res) {
             console.log(res);
+            if (res.status = 'REQUEST_SUCCESS'){
+                for(let cart of res.data){
+                    let image_td = $("<td></td>");
+                    let image = $("<img width='50px' height='50px'>").prop("src",cart.goods.image);
+                    //将图片放到td
+                    image_td.append(image);
+
+                    //创建tr
+                    let tr = $("<tr></tr>");
+                    //将td放到tr上
+                    tr.append(image_td);
+
+                    //将tr放到表格上
+                    $("#goodslist").append(tr);
+                }
+            }
         }
     });
 
