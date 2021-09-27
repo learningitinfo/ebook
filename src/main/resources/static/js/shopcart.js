@@ -96,9 +96,9 @@ function renderCartList(shopcartListData){
                     <span class="price">￥${item.goods.salesprice}</span>
                 </td>
                 <td>
-                    <span class="opr">-</span>
-                     <input type='' value="${item.nums}" class="inpunum"/>
-                    <span class="opr">+</span>
+                    <span class="opr" onclick="changeNum(-1,${item.id})">-</span>
+                     <input type='number' value="${item.nums}" class="inpunum" id="input${item.id}"/>
+                    <span class="opr" onclick="changeNum(1,${item.id})">+</span>
                 </td>
                 <td>
                     <!--toFixed指定保留小数点后几位，会进行四舍五入-->
@@ -117,6 +117,25 @@ function renderCartList(shopcartListData){
     let tableInfo=tableStart+tableHeader+tablebody+tableEnd+totalpriceArea;
     document.querySelector("#shopcartarea").innerHTML=tableInfo;
 }
+
+//修改数量
+function changeNum(num,id) {// 1  -1
+    console.log(num,id)
+    //判断是+还是-
+    if (num == -1){
+        console.log("减操作");
+        //减：判断当前商品的数量是否已经是1了，因为最少应该购买一件
+        //得到当前商品对应的数量
+        let nums = $("#input"+id).val();
+        console.log(nums);
+        if (nums == 1){
+            alert("至少购买一件");
+            return; //不执行其它操作
+        }
+    }
+}
+
+
 //全选功能
 function checkAll(){ 
     let flag=document.querySelector("#selectAll").checked;
