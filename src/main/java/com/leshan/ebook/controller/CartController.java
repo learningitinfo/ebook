@@ -114,13 +114,14 @@ public class CartController {
     @RequestMapping("/byids")
     @ResponseBody
     public ResponseResult byids(int[] ids){
-//        for (int i = 0; i < ids.length; i++) {
-//            System.out.println(ids[i]);
-//        }
+
         //调用service找到对应购物车的商品信息
+        ResponseResult responseResult = new ResponseResult();
+        responseResult.setCode(200);
+        responseResult.setStatus(Status.REQUEST_SUCCESS);
+        responseResult.setData(cartService.findByIds(ids));
 
-
-        return null;
+        return responseResult;
     }
 
 }
