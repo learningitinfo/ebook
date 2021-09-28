@@ -27,4 +27,13 @@
             </selectKey>
     </insert>
 
+    <!--获取订单商品信息-->
+    <select id="findByIds" resultType="OrderItem">
+        select c.goodsid,c.nums,g.salesprice price
+	        from mall_cart c,mall_goods g
+	        where c.goodsid = g.id and c.id in
+            <foreach collection="array" item="id" open="(" close=")" separator=",">
+                #{id}
+            </foreach>
+    </select>
 </mapper>

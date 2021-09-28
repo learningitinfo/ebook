@@ -4,6 +4,7 @@ import com.leshan.ebook.mapper.AddressMapper;
 import com.leshan.ebook.mapper.OrderMapper;
 import com.leshan.ebook.mybatis.entity.Address;
 import com.leshan.ebook.mybatis.entity.Order;
+import com.leshan.ebook.mybatis.entity.OrderItem;
 import com.leshan.ebook.mybatis.entity.dto.OrderDto;
 import com.leshan.ebook.service.OrderService;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -45,10 +47,17 @@ public class OrderServiceImpl implements OrderService {
         //1.5.向订单表中插入一条记录
         orderMapper.addOrder(order);
 
-        System.out.println(order.getId());  //引用
-
 
         //2.向订单详情表中插入订单商品信息
+        //2.1.查询出商品id、数量、价格
+        List<OrderItem> orderItems = orderMapper.findByIds(ids);
+
+        //2.2.给item设置订单id
+        for(OrderItem orderItem : orderItems){
+            orderItem.setOrderid(order.getId());
+        }
+
+        //2.3.向订单详情表中插入数据
 
 
         //3.删除购物车对应的购物车信息

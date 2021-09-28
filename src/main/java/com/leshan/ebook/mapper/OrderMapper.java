@@ -1,9 +1,11 @@
 package com.leshan.ebook.mapper;
 
 import com.leshan.ebook.mybatis.entity.Order;
+import com.leshan.ebook.mybatis.entity.OrderItem;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Mapper
 public interface OrderMapper {
@@ -12,4 +14,7 @@ public interface OrderMapper {
 
     //添加订单方法
     public int addOrder(Order order);
+
+    //查询当前订单所有商品的信息
+    public List<OrderItem> findByIds(int[] ids);
 }
