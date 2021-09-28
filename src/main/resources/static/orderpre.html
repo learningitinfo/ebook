@@ -26,8 +26,21 @@
 
     </table>
 </div>
+<!--总金额、下单按钮-->
+<div>
+    <p>
+        <span>应付总金额:</span><span id="total"></span>
+    </p>
+    <button onclick="makeorder()">确认无误,提交订单</button>
+</div>
 
 <script>
+    /*下订单*/
+    function makeorder(){
+        alert("下订单");
+    }
+
+
     //得到购物车的id
     let ids = window.location.href.split("=")[1];
     console.log(ids);
@@ -41,6 +54,8 @@
         success:function (res) {
             console.log(res);
             if (res.status = 'REQUEST_SUCCESS'){
+                //总金额
+                let total = 0;
                 for(let cart of res.data){
                     let image_td = $("<td></td>");
                     let image = $("<img width='50px' height='50px'>").prop("src",cart.goods.image);
@@ -55,6 +70,8 @@
                     let nums_td = $("<td></td>").text(cart.nums);
                     //小计
                     let sm_total = $("<td></td>").text(cart.nums * cart.goods.salesprice);
+                    //总金额
+                    total = total + cart.nums * cart.goods.salesprice;
 
                     //创建tr
                     let tr = $("<tr></tr>");
@@ -69,6 +86,9 @@
                     //将tr放到表格上
                     $("#goodslist").append(tr);
                 }
+                //设置总金额
+                total = total.toFixed(1);   //处理精度
+                $("#total").text(total);
             }
         }
     });
