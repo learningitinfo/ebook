@@ -45,6 +45,8 @@ public class OrderServiceImpl implements OrderService {
         //1.5.向订单表中插入一条记录
         orderMapper.addOrder(order);
 
+        System.out.println(order.getId());  //引用
+
 
         //2.向订单详情表中插入订单商品信息
 

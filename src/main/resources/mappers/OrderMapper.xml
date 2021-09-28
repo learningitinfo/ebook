@@ -17,6 +17,14 @@
     <insert id="addOrder">
         insert into mall_order
             values(default,#{orderno},#{userid},now(),#{accept},#{telphone},#{address},#{money},'1',null,'0')
+            /*在插入完数据之后立即查询id
+                keyProperty：指定将查询出来的值赋值给参数的哪个属性
+                order：指定selectKey中SQL语句执行的顺序
+                    after：在insert语句之后执行
+            */
+            <selectKey keyProperty="id" order="AFTER" resultType="int">
+                select last_insert_id()
+            </selectKey>
     </insert>
 
 </mapper>
