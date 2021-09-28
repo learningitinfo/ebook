@@ -1,6 +1,7 @@
 package com.leshan.ebook.service.impl;
 
 import com.leshan.ebook.mapper.AddressMapper;
+import com.leshan.ebook.mapper.CartMapper;
 import com.leshan.ebook.mapper.OrderItemMapper;
 import com.leshan.ebook.mapper.OrderMapper;
 import com.leshan.ebook.mybatis.entity.Address;
@@ -11,6 +12,7 @@ import com.leshan.ebook.service.OrderService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -28,13 +30,17 @@ public class OrderServiceImpl implements OrderService {
     @Resource
     private OrderItemMapper orderItemMapper;
 
+    @Resource
+    private CartMapper cartMapper;
+
     @Override
     public OrderDto makeOrder(int[] ids, int aid, int userid) {
         //1.向订单表中插入一条订单数据
         Order order = new Order();
 
         //1.1.生成订单编号
-        order.setOrderno(generateOrderno());
+        String orderno = generateOrderno();
+        order.setOrderno(orderno);
 
         //1.2.设置用户id
         order.setUserid(userid);
@@ -46,7 +52,8 @@ public class OrderServiceImpl implements OrderService {
         order.setAddress(address.getProvince()+address.getCity()+address.getArea()+address.getAddress());
 
         //1.4.计算总金额 = 数量 * 单价
-        order.setMoney(orderMapper.totalPrice(ids));
+        BigDecimal totalPrice = orderMapper.totalPrice(ids);
+        order.setMoney(totalPrice);
 
         //1.5.向订单表中插入一条记录
         orderMapper.addOrder(order);
@@ -65,11 +72,16 @@ public class OrderServiceImpl implements OrderService {
         orderItemMapper.addItem(orderItems);
 
         //3.删除购物车对应的购物车信息
+        cartMapper.delByIds(ids);
 
 
         //4.返回结果：订单id、订单编号、订单金额
+        OrderDto orderDto = new OrderDto();
+        orderDto.setId(order.getId());
+        orderDto.setOrderno(orderno);
+        orderDto.setPrice(totalPrice);
 
-        return null;
+        return orderDto;
     }
     public String generateOrderno(){
         //生成订单编号：WN + 20200903150222 + 6885(随机)
