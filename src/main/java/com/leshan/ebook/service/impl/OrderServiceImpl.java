@@ -1,6 +1,7 @@
 package com.leshan.ebook.service.impl;
 
 import com.leshan.ebook.mapper.AddressMapper;
+import com.leshan.ebook.mapper.OrderMapper;
 import com.leshan.ebook.mybatis.entity.Address;
 import com.leshan.ebook.mybatis.entity.Order;
 import com.leshan.ebook.mybatis.entity.dto.OrderDto;
@@ -18,6 +19,9 @@ public class OrderServiceImpl implements OrderService {
     @Resource
     private AddressMapper addressMapper;
 
+    @Resource
+    private OrderMapper orderMapper;
+
     @Override
     public OrderDto makeOrder(int[] ids, int aid, int userid) {
         //1.向订单表中插入一条订单数据
@@ -25,16 +29,21 @@ public class OrderServiceImpl implements OrderService {
 
         //1.1.生成订单编号
         order.setOrderno(generateOrderno());
+
         //1.2.设置用户id
         order.setUserid(userid);
+
         //1.3.通过收货地址id得到收货地址信息
         Address address = addressMapper.findById(aid);
         order.setAccept(address.getAccept());
         order.setTelphone(address.getTelphone());
         order.setAddress(address.getProvince()+address.getCity()+address.getArea()+address.getAddress());
+
         //1.4.计算总金额 = 数量 * 单价
+        order.setMoney(orderMapper.totalPrice(ids));
 
-
+        //1.5.向订单表中插入一条记录
+        orderMapper.addOrder(order);
 
 
         //2.向订单详情表中插入订单商品信息

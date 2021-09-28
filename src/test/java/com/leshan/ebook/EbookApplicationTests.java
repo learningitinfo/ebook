@@ -71,4 +71,14 @@ class EbookApplicationTests {
             System.out.println(orderServiceImpl.generateOrderno());
         }
     }
+
+    //测试订单
+    @Test
+    void orderTest(){
+        int[] ids = {94,95};
+        int aid = 10;
+        int userid = 1;
+        orderServiceImpl.makeOrder(ids,aid,userid);
+
+    }
 }
