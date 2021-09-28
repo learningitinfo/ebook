@@ -4,7 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--namespace的值必须与对应mapper接口的全名一致-->
 <mapper namespace="com.leshan.ebook.mapper.AddressMapper">
+    <!--通过用户id查询用户所有收货地址-->
     <select id="findByUserId" resultType="Address">
         select * from mall_address where userid = #{userid}
+    </select>
+
+    <!--通过id查询地址-->
+    <select id="findById" resultType="Address">
+        select * from mall_address where id = #{id}
     </select>
 </mapper>

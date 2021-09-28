@@ -4,6 +4,8 @@ import com.leshan.ebook.mapper.GoodsMapper;
 import com.leshan.ebook.mybatis.entity.Goods;
 import com.leshan.ebook.mybatis.entity.dto.GoodsDto;
 import com.leshan.ebook.service.CartService;
+import com.leshan.ebook.service.OrderService;
+import com.leshan.ebook.service.impl.OrderServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -57,5 +59,16 @@ class EbookApplicationTests {
     void ids(){
         int[] ids = {94,95};
         System.out.println(cartService.findByIds(ids));
+    }
+
+
+    //测试自动生成订单编号
+    @Resource
+    private OrderServiceImpl orderServiceImpl;
+    @Test
+    void orderno(){
+        for (int i = 0; i < 20; i++) {
+            System.out.println(orderServiceImpl.generateOrderno());
+        }
     }
 }
