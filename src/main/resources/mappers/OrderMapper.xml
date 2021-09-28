@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace的值必须与对应mapper接口的全名一致-->
+<mapper namespace="com.leshan.ebook.mapper.OrderMapper">
+    <select id="totalPrice" resultType="bigdecimal">
+        select sum(c.nums*g.salesprice) from mall_cart c,mall_goods g
+	        where c.goodsid = g.id and c.id in
+	        <foreach collection="array" item="id" open="(" close=")" separator=",">
+                #{id}
+            </foreach>
+    </select>
+</mapper>

@@ -32,6 +32,9 @@ public class OrderServiceImpl implements OrderService {
         order.setAccept(address.getAccept());
         order.setTelphone(address.getTelphone());
         order.setAddress(address.getProvince()+address.getCity()+address.getArea()+address.getAddress());
+        //1.4.计算总金额 = 数量 * 单价
+
+
 
 
         //2.向订单详情表中插入订单商品信息
