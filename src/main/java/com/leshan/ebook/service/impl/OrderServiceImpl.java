@@ -1,6 +1,7 @@
 package com.leshan.ebook.service.impl;
 
 import com.leshan.ebook.mapper.AddressMapper;
+import com.leshan.ebook.mapper.OrderItemMapper;
 import com.leshan.ebook.mapper.OrderMapper;
 import com.leshan.ebook.mybatis.entity.Address;
 import com.leshan.ebook.mybatis.entity.Order;
@@ -23,6 +24,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Resource
     private OrderMapper orderMapper;
+
+    @Resource
+    private OrderItemMapper orderItemMapper;
 
     @Override
     public OrderDto makeOrder(int[] ids, int aid, int userid) {
@@ -58,7 +62,7 @@ public class OrderServiceImpl implements OrderService {
         }
 
         //2.3.向订单详情表中插入数据
-
+        orderItemMapper.addItem(orderItems);
 
         //3.删除购物车对应的购物车信息
 
