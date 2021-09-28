@@ -8,6 +8,7 @@
 <body>
 <!--购买的商品信息-->
 <div>
+    <h3>商品信息</h3>
     <table id="goodslist" border="1px;">
         <tr>
             <th>图片</th>
@@ -16,6 +17,13 @@
             <th>数量</th>
             <th>小计</th>
         </tr>
+    </table>
+</div>
+<!--收货地址-->
+<div>
+    <h3>收货地址</h3>
+    <table border="1px" id="address">
+
     </table>
 </div>
 
@@ -40,7 +48,7 @@
                     image_td.append(image);
 
                     //名称
-                    let name_td = $("<td></td>").text(cart.goods.name);
+                    let name_td = $("<td width='40%'></td>").text(cart.goods.name);
                     //单价
                     let price_td = $("<td></td>").text(cart.goods.salesprice);
                     //数量
@@ -65,7 +73,12 @@
         }
     });
     //2.发送请求获取当前用户的收货地址
-
+    $.ajax({
+        url:'address/info',
+        success:function (res) {
+            console.log(res);
+        }
+    });
 
 </script>
 </body>
