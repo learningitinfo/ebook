@@ -53,6 +53,17 @@
             }
         }
         console.log(aid);
+        //发请求、提交数据
+        $.ajax({
+            url:'order/make',
+            data:{
+                'ids':ids,
+                'aid':aid
+            },
+            success:function (res) {
+                console.log(res);
+            }
+        });
     }
 
 
