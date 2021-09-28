@@ -77,6 +77,34 @@
         url:'address/info',
         success:function (res) {
             console.log(res);
+            for (let item of res.data){
+                //创建行
+                let tr = $("<tr></tr>");
+                //td
+                let check_td = $("<td></td>");
+                let radio = $("<input type='radio' name='check_address'>");
+                if (item.type == 'y'){
+                    //默认
+                    radio.prop("checked",true);
+                }
+                check_td.append(radio);
+
+                //收货人
+                let accept = $("<td></td>").text(item.accept);
+                //手机号
+                let telphone = $("<td></td>").text(item.telphone);
+                //地址
+                let address_td = $("<td></td>").text(item.province+item.city+item.area+item.address);
+
+                //将td放到tr上
+                tr.append(check_td);
+                tr.append(accept);
+                tr.append(telphone);
+                tr.append(address_td);
+
+                //将tr放到table上
+                $("#address").append(tr);
+            }
         }
     });
 
