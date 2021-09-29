@@ -51,6 +51,13 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!--导入支付宝依赖-->
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>4.9.124.ALL</version>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>
