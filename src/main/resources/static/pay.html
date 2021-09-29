@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery.min.js"></script>
+</head>
+<body>
+<div>
+    <!--显示订单编号、金额-->
+    <table>
+        <tr>
+            <td>订单编号</td>
+            <td id="orderno"></td>
+        </tr>
+        <tr>
+            <td>订单金额</td>
+            <td id="price"></td>
+        </tr>
+    </table>
+    <button onclick="gopay()">立即支付</button>
+</div>
+<script>
+    //JSON.parse 将JSON格式的字符串解析成对象
+    let data = JSON.parse(window.sessionStorage.getItem("orderdto"));
+
+    //渲染数据
+    $("#orderno").text(data.orderno);
+    $("#price").text(data.price);
+
+    function gopay() {
+        alert("支付");
+    }
+</script>
+</body>
+</html>

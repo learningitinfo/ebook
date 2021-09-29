@@ -62,6 +62,17 @@
             },
             success:function (res) {
                 console.log(res);
+                //当数据量比较大时，页面之间的传参通过sessionstorage实现
+                //sessionstorage是浏览器自带的对象，里面可以存储临时的数据，这些数据可以在各个页面之间共享
+                //只要浏览器关闭，这些数据就会被清除掉
+                //注意：sessionstorage存储数据时是以字符串的形式存储，如果要向里面存放对象，需要先将对象转换成json格式
+                //的字符串
+                let data = JSON.stringify(res.data);
+                //存入sessionstorage
+                window.sessionStorage.setItem("orderdto",data);
+
+                //跳转到支付页面
+                window.location.href = 'pay.html';
             }
         });
     }
