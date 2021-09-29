@@ -28,8 +28,31 @@
     $("#orderno").text(data.orderno);
     $("#price").text(data.price);
 
+    //去结算
     function gopay() {
-        alert("支付");
+        //利用form表单提交：订单编号、金额、订单名称、订单描述
+        //创建form表单
+        let form = $("<form action='order/pay' method='post'></form>");
+        //订单编号
+        let orderno = $("<input type='text' name='WIDout_trade_no'>").prop("value",data.orderno);
+        //订单金额
+        let price = $("<input type='text' name='WIDtotal_amount'>").prop("value",data.price);
+        //订单名称
+        let name = $("<input type='text' name='WIDsubject'>").prop("value",data.id);
+        //订单描述
+        let description = $("<input type='text' name='WIDbody'>").prop("value","测试");
+
+        //将数据放到from表单下
+        form.append(orderno);
+        form.append(price);
+        form.append(name);
+        form.append(description);
+
+        //将from添加到页面上    必须放在页面上，不然无法提交数据
+        $("body").append(form);
+
+        //提交数据
+        form.submit();
     }
 </script>
 </body>
