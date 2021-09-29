@@ -32,7 +32,7 @@
     function gopay() {
         //利用form表单提交：订单编号、金额、订单名称、订单描述
         //创建form表单
-        let form = $("<form action='order/pay' method='post'></form>");
+        let form = $("<form action='order/pay' method='post' style='display: none;'></form>");
         //订单编号
         let orderno = $("<input type='text' name='WIDout_trade_no'>").prop("value",data.orderno);
         //订单金额
