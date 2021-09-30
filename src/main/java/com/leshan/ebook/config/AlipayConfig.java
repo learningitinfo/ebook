@@ -16,10 +16,10 @@ public class AlipayConfig {
     public static String alipay_public_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjb9u/4FUJh10/QyWbg6UUmpOio2KDRt6gDII9BAewTMeO0ixQaAs/WSx+VoEklAHuQdtyUkkl7mMNtRqNI4MU5Ia+wtC9zhPNnyEOFYHdz1PYVO8XX4ewYeMIa410lCYOyiBL5Hz0Jx/WBb/OXz1lsLXpRwsnlbUfplfEgmvLWgni/kERD28wOPcGNfnziXmPzXn7Y0Xaa1aXPMXoCvZbYwiX0+oA+bK1RksXFKw6RzhdRzmXBIZkTX+KD1oeHW3vcYF6glxJlIOJWw1oXxCi3Nn2rXBTIrh77of0tAhR+A541y/r6daEeEVeHbsbMRFAbSF/YFXShWmvHEhdN2rEQIDAQAB";
 
     // 服务器异步通知页面路径  需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-    public static String notify_url = "http://localhost:8080/alipay.trade.page.pay-JAVA-UTF-8/notify_url.jsp";
+    public static String notify_url = "http://xiangwei.free.svipss.top/order/update";
 
     // 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-    public static String return_url = "http://localhost:8080/alipay.trade.page.pay-JAVA-UTF-8/return_url.jsp";
+    public static String return_url = "http://xiangwei.free.svipss.top"; //localhost:8080
 
     // 签名方式
     public static String sign_type = "RSA2";
