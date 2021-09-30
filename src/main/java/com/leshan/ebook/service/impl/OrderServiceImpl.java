@@ -104,4 +104,9 @@ public class OrderServiceImpl implements OrderService {
         return orderno + time + num;
     }
 
+    @Override
+    public int update(String orderno) {
+
+        return orderMapper.update(orderno);
+    }
 }

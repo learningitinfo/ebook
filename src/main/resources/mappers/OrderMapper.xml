@@ -36,4 +36,9 @@
                 #{id}
             </foreach>
     </select>
+
+    <!--更新订单-->
+    <update id="update">
+        update mall_cart set paytime = now(),status = '1' where orderno = #{orderno}
+    </update>
 </mapper>

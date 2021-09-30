@@ -17,4 +17,7 @@ public interface OrderMapper {
 
     //查询当前订单所有商品的信息
     public List<OrderItem> findByIds(int[] ids);
+
+    //修改订单状态
+    public int update(String orderno);
 }
