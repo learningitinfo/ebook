@@ -1,5 +1,7 @@
 package com.leshan.ebook.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.leshan.ebook.mapper.AddressMapper;
 import com.leshan.ebook.mapper.CartMapper;
 import com.leshan.ebook.mapper.OrderItemMapper;
@@ -16,6 +18,7 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 @Service
@@ -108,5 +111,22 @@ public class OrderServiceImpl implements OrderService {
     public int update(String orderno) {
 
         return orderMapper.update(orderno);
+    }
+
+    @Override
+    public Map<String, Object> totalOrder(Integer userId) {
+        return orderMapper.totalOrder(userId);
+    }
+
+    @Override
+    public PageInfo<Order> getOrdersPageByUserIdAndStatus(Integer userId, String status, Integer pageNum, Integer pageSize) {
+        //设置页码和每页记录数
+        PageHelper.startPage(pageNum,pageSize);
+        //根据用户编号和订单状态获取订单集合
+        List<Order> list = orderMapper.getOrdersByUserIdAndStatus(userId,status);
+        //创建分页对象
+        PageInfo<Order> pageInfo = new PageInfo<>(list);
+        //返回分页对象
+        return pageInfo;
     }
 }

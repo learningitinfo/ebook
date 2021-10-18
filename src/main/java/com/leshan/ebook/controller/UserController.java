@@ -1,15 +1,19 @@
 package com.leshan.ebook.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.leshan.ebook.enums.Status;
 import com.leshan.ebook.mybatis.entity.User;
 import com.leshan.ebook.service.UserService;
 import com.leshan.ebook.utils.ResponseResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/user")
@@ -37,7 +41,7 @@ public class UserController {
         //判断
         if (user != null){
             //判断密码
-            if (pwd.equals(user.getPassword())){
+            if (pwd.equals(user.getPassword())&&(user.getStatus().equals("1"))){
                 //账号密码都对，表示登录成功
                 System.out.println("登录成功!");
 
@@ -48,6 +52,7 @@ public class UserController {
                 responseResult.setCode(200);
                 responseResult.setStatus(Status.LOGIN_SUCCESS);
                 responseResult.setMessage("登录成功");
+                responseResult.setData(user);
                 //
                 return responseResult;
             }
@@ -56,8 +61,57 @@ public class UserController {
         System.out.println("登录失败");
         responseResult.setCode(500);
         responseResult.setStatus(Status.LOGIN_FAIL);
-        responseResult.setMessage("账号或密码有误!");
+        responseResult.setMessage("账号、密码有误或该账号没有激活，请查看邮箱!");
         //
         return responseResult;
+    }
+
+    @RequestMapping("/getPageInfo")
+    @ResponseBody
+    public PageInfo<User> getPageInfo(@RequestParam(value="pageNum",required = false,defaultValue = "1")Integer pageNum,
+                                      @RequestParam(value="pageSize",required = false,defaultValue = "4")Integer pageSize){
+         return userService.getPageInfo(pageNum,pageSize);
+    }
+
+    /**
+     * 用户注册
+     * @param user 用户对象
+     * @return
+     */
+    @RequestMapping(value = "/register")
+    @ResponseBody
+    public ResponseResult register(User user){
+        user.setStatus("0");
+        user.setRegtime(new Date());
+        //生成验证码（激活码--头像）
+        String code = UUID.randomUUID().toString().replaceAll("-","");
+        //设置用户头像为激活码，后期会上传用户头像
+        user.setAvatar(code);
+        userService.addUser(user);
+        ResponseResult responseResult = new ResponseResult();
+        responseResult.setMessage("注册成功,请通过邮箱激活！");
+        responseResult.setStatus(Status.LOGIN_SUCCESS);
+        responseResult.setData(user);
+        responseResult.setCode(200);
+        return responseResult;
+    }
+
+    /**
+     *校验邮箱中的code激活账户
+     * 首先根据激活码code查询用户，之后再把状态修改为"1"
+     */
+    @RequestMapping(value = "/checkCode")
+    public String checkCode(String code){
+        //根据激活码获取用户对象
+        User user = userService.checkCode(code);
+        //如果用户不等于null，把用户状态修改status=1
+        if (user !=null){
+            user.setStatus("1");
+            //把code验证码清空，已经不需要了
+            user.setAvatar(null);
+            //更新用户
+            userService.updateUserStatus(user);
+        }
+        return "redirect:/login.html";
     }
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace的值必须与对应mapper接口的全名一致-->
+<mapper namespace="com.leshan.ebook.mapper.CategoryMapper">
+    <!--获取所有分类-->
+    <select id="findAllCategories" resultType="Category">
+        SELECT * FROM mall_category
+    </select>
+    <!--添加分类-->
+    <insert id="addCategory">
+        insert into mall_category(id,name,status,navable)
+        values(default,#{name},#{status},#{navable})
+        /*在插入完数据之后立即查询id
+        keyProperty：指定将查询出来的值赋值给参数的哪个属性
+        order：指定selectKey中SQL语句执行的顺序
+        after：在insert语句之后执行
+        */
+        <selectKey keyProperty="id" order="AFTER" resultType="int">
+            select last_insert_id()
+        </selectKey>
+    </insert>
+    <!--修改分类-->
+    <update id="updateCategory" parameterType="Category">
+        UPDATE mall_category SET name=#{name},status=#{status},navable=#{navable}
+        WHERE id=#{id}
+    </update>
+</mapper>

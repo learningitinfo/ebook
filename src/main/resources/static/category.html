@@ -1,0 +1,465 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线书城-全世界最大书城</title>
+    <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./css/commons.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_2466032_1guctssow9r.css">
+    <!--导入jQuery-->
+    <script src="./js/jquery.min.js"></script>
+</head>
+<body>
+<!-- 头部开始 -->
+<div class="header flux clearfix">
+    <div class="container">
+        <h1 class="logo l">
+            <img src="./images/logo.jpeg" alt="">
+        </h1>
+        <ul class="shortcut">
+            <li>
+                <img src="./images/addr.png" alt="">
+                北京
+                <img src="./images/xia.png" alt="">
+            </li>
+            <li>首页</li>
+            <li id="cat"><a href="#">分类</a>
+                <ul id="cat_down">
+                    <!--                        <li>AAAA</li>-->
+                    <!--                        <li>AAAA</li>-->
+                    <!--                        <li>AAAA</li>-->
+                    <!--                        <li>AAAA</li>-->
+                </ul>
+            </li>
+            <script>
+                $.ajax({
+                    url:"/category/list",
+                    type:"get",
+                    dataType:"json",  //期望得到的数据类型
+                    success:function(result){
+                        $.each(result,function(index,item){
+                            //alert(result[index])
+                            if(item.navable=='y'){
+                                $("#cat_down").append($("<li><a href='category.html?id="+item.id+"&p=1'>" + item.name+"</a></li>"));
+                            }
+                        });
+                        //$("#cat_down").append($("<li>" + ))
+                    }
+                });
+            </script>
+            <li>
+                <img src="./images/search.png" alt="">
+                <input type="text" id="txt_search" placeholder="搜索图书、课堂、文艺类">
+                <button id="btn_search">搜索</button>
+                <script>
+                    $("#btn_search").click(function(){
+                        //获取文本框的内容
+                        let book_name = $("#txt_search").val();
+                        //将文本框的内容存储在session中
+                        window.sessionStorage.setItem("book_name",book_name);
+                        //页面跳转到search.html
+                        location.href = "search.html";
+                    });
+                </script>
+            </li>
+            <li>
+                <img src="./images/user.png" alt="">
+                <script>
+                    //页面加载
+                    $(function(){
+                        //获取session中的值
+                        let userid = window.sessionStorage.getItem("userid");
+                        //alert(userid);
+                        if(userid==null){
+                            $("#header_login_info").html("<a href=\"login.html\">登录</a>");
+                        }else{
+                            $("#header_login_info").html("<a href=\"personal.html\">个人中心</a>");
+                        }
+                    });
+                </script>
+                <span id="header_login_info"></span>
+            </li>
+            <li>
+                <img src="./images/phone.png" alt="">
+                <span><a href="register.html">注册</a></span>
+            </li>
+            <li>
+                <div class="shopcart">
+                    <i class="iconfont icon-gouwuche" style="font-size:20px"></i>
+                    <span>购物车</span>
+                    <span>0</span>
+                </div>
+                <script>
+                    $(function(){
+                        $.ajax({
+                            url:"cart/find",
+                            type:"get",
+                            success:function (res) {
+                                if(res.data!=null){
+                                    $(".shopcart span:eq(1)").text("（"+res.data.length+"）");
+                                }
+                            }
+                        });
+                        $("li .shopcart").click(function (){
+                            //获取session中的值
+                            let userid = window.sessionStorage.getItem("userid");
+                            if(userid==null) {
+                                window.location.href = "login.html";
+                            }else{
+                                window.location.href = "shopcart.html";
+                            }
+                        });
+                    });
+                </script>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- 头部结束 -->
+    <!-- 轮播图开始 -->
+    <div class="box">
+        <img src="./images/slider3.jpg" alt="">
+        <ul class="indicator">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <div class="leftBtn">&lt;</div>
+        <div class="rightBtn">&gt;</div>
+    </div>
+    <!-- 轮播图结束 -->
+    <!-- 最新商品区开始 -->
+    <div class="hotpro clearfix container">
+        <div class="title clearfix">
+            <div class="first-title l">书</div>
+            <div class="second-title l">分类</div>
+            <div class="second-title l">
+                <ul id="category">
+<!--                    <li><a href="#">AAA</a></li>-->
+<!--                    <li class="active"><a href="#">BBB</a></li>-->
+<!--                    <li><a href="#">CCC</a></li>-->
+<!--                    <li><a href="#">DDD</a></li>-->
+                </ul>
+                <script>
+                    var location_href  = location.href; //http://localhost:8080/category.html?id=3
+                    var cid;
+                    if(location_href.indexOf("=")==-1){
+                        cid = 0;
+                    }else{
+                        cid = location_href.substr(location_href.indexOf("=")+1);
+                    }
+                    $.ajax({
+                        url:"/category/list",
+                        type:"get",
+                        dataType:"json",  //期望得到的数据类型
+                        success:function(result){
+                            $.each(result,function(index,item){
+                                let $li = $("<li><a href='category.html?id="+item.id+"&p=1'>"+item.name+"</a></li>");
+                                if(cid==item.id){
+                                    $li.addClass("active");
+                                }
+                                $("#category").append($li);
+                            });
+                            //$("#cat_down").append($("<li>" + ))
+                        }
+                    });
+                </script>
+            </div>
+        </div>
+        <div class="main clearfix" >
+            <ul id="newsetgoods">
+<!--                <li>-->
+<!--                    <a href="detail.html">-->
+<!--                        <img src="./images/goods/0019afc71fa54435b055471d509915b6.jpg" alt="">-->
+<!--                    </a>-->
+<!--                    <p>古代人的日常生活2</p>-->
+<!--                    <p>讲历史的王老师；读客文化出品</p>-->
+<!--                    <p>-->
+<!--                        <span>￥37.9</span>-->
+<!--                        <span>￥75.9</span>-->
+<!--                    </p>-->
+<!--                </li>-->
+                <script>
+                    var location_href  = location.href; //http://localhost:8080/category.html?id=3&p=1
+                    var cid; //分类编号
+                    var pageNum; //页码
+                    if(location_href.indexOf("=")==-1){
+                        cid = 0;
+                        pageNum = 1;
+                    }else{
+                        //substring(start,stop) //从起始索引 到 终止索引
+                        //substr(start,length) //从起始索引 截取指定长度
+                        cid = location_href.substring(location_href.indexOf("=")+1,location_href.lastIndexOf("&"));
+                        pageNum = location_href.substr(location_href.lastIndexOf("=")+1);
+                    }
+                    $.ajax({
+                        url:"/goods/getGoodsByCategoryId",
+                        type:"post",
+                        data: {"categoryId":cid,"pageNum":pageNum,"pageSize":"15"},
+                        dataType:"json",  //期望得到的数据类型
+                        success:function (res) {  //当请求成功之后调用的回调函数，res就是得到的数据
+                            console.log(res);
+                            //遍历数组，创建li
+                            for(let i = 0;i < res.list.length; i++){
+                                //得到商品
+                                let goods = res.list[i];
+                                //创建li
+                                let li = $("<li></li>");
+
+                                //创建a标签
+                                let a = $("<a href='detail.html?id="+goods.id+"'></a>");
+
+                                //创建img标签
+                                let img = $("<img src='" + goods.image + "'>");
+
+                                //将img标签设置为a标签的子标签
+                                a.append(img);
+
+                                //将a标签设置为li的子标签
+                                li.append(a);
+
+                                //名字的p标签
+                                //let name = $("<p>"+goods.name+"</p>");
+                                let name = $("<p></p>").text(goods.name);
+                                li.append(name);
+
+                                //商品描述
+                                let description = $("<p></p>").text(goods.description);
+                                li.append(description);
+
+                                //价格
+                                let marketprice = $("<span></span>").text("￥"+goods.marketprice);
+                                let salesprice = $("<span></span>").text("￥"+goods.salesprice);
+                                let price_p = $("<p></p>");
+                                //将价格标签设置为price_p的子标签
+
+                                price_p.append(salesprice);
+                                price_p.append(marketprice);
+
+                                //将价格p标签设置到li上
+                                li.append(price_p);
+
+                                //找到ul标签，并将li设置为ul的子标签
+                                $("#newsetgoods").append(li);
+                            }
+                            $("#page ul").append($("<li style='width: 80px;'>第一页</li>"));
+                            $("#page ul").append($("<li style='width: 80px;'>上一页</li>"));
+                           for(var i=0;i<res.navigatepageNums.length;i++){
+                               let li = $("<li></li>").text(res.navigatepageNums[i]);
+                               if(res.pageNum==res.navigatepageNums[i]){
+                                   li.css({
+                                       "background-color":"#333",
+                                       "color":"#FFF"
+                                   });
+                               }
+                               $("#page ul").append(li);
+                           }
+                            $("#page ul").append($("<li style='width: 80px;'>下一页</li>"));
+                            $("#page ul").append($("<li style='width: 80px;'>最后一页</li>"));
+
+                            //给分页的每个li添加事件
+                            $("#page ul li").click(function(){
+                                var url = "category.html?id="+cid;
+                                //alert($(this).text());
+                                if($(this).text()=="第一页"){
+                                    location.href = url + "&p=1";
+                                }else if($(this).text()=="下一页"){
+                                    location.href = url+"&p="+res.nextPage;
+                                }else if($(this).text()=="上一页"){
+                                    location.href = url +"&p="+res.prePage;
+                                }else if($(this).text()=="最后一页"){
+                                    location.href = url + "&p="+res.pages;
+                                }else{
+                                    location.href = url + "&p=" + $(this).text();
+                                }
+                            });
+
+                        }
+                    });
+                </script>
+
+            </ul>
+        </div>
+        <div id="page">
+            <ul>
+<!--                <li style="width: 80px">第一页</li>-->
+<!--                <li style="width: 80px">上一页</li>-->
+<!--                <li><a href="#">1</a></li>-->
+<!--                <li><a href="#">2</a></li>-->
+<!--                <li><a href="#">3</a></li>-->
+<!--                <li><a href="#">4</a></li>-->
+<!--                <li><a href="#">5</a></li>-->
+<!--                <li><a href="#">6</a></li>-->
+<!--                <li style="width: 80px">下一页</li>-->
+<!--                <li style="width: 80px">最后一页</li>-->
+            </ul>
+        </div>
+    </div>
+    <!-- 搜索图书结束 -->
+    <!-- 底部栏开始 -->
+    <div class="footer flux">
+        <div class="f1 container">
+            <ul>
+                <li>
+                    <div class="tb1"></div>
+                    <div class="tbc">品类齐全，轻松购物</div>
+                </li>
+                <li>
+                    <div class="tb2"></div>
+                    <div class="tbc">多仓直发，极速配送</div>
+               </li>
+                <li>
+                    <div class="tb3"></div>
+                    <div class="tbc">正品行货，精致服务</div>
+                </li>
+                <li>
+                    <div class="tb4"></div>
+                    <div class="tbc">天天低价，畅选无忧</div>
+                </li>
+            </ul>
+        </div>
+        <div class="operator"></div>
+        <div class="f2 container">
+            <div>
+                <ul>
+                    <li>购物指南</li>
+                    <li>
+                        <a href="#">购物流程</a>
+                    </li>
+                    <li>
+                        <a href="#">会员介绍</a>
+                    </li>
+                    <li>
+                        <a href="#">生活旅行/团购</a>
+                    </li>
+                    <li>
+                        <a href="#">常见问题</a>
+                    </li>
+                    <li>
+                        <a href="#">大家电</a>
+                    </li>
+                    <li>
+                        <a href="#">联系客服</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li>购物指南</li>
+                    <li>
+                        <a href="#">购物流程</a>
+                    </li>
+                    <li>
+                        <a href="#">会员介绍</a>
+                    </li>
+                    <li>
+                        <a href="#">生活旅行/团购</a>
+                    </li>
+                    <li>
+                        <a href="#">常见问题</a>
+                    </li>
+                    <li>
+                        <a href="#">大家电</a>
+                    </li>
+                    <li>
+                        <a href="#">联系客服</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li>购物指南</li>
+                    <li>
+                        <a href="#">购物流程</a>
+                    </li>
+                    <li>
+                        <a href="#">会员介绍</a>
+                    </li>
+                    <li>
+                        <a href="#">生活旅行/团购</a>
+                    </li>
+                    <li>
+                        <a href="#">常见问题</a>
+                    </li>
+                    <li>
+                        <a href="#">大家电</a>
+                    </li>
+                    <li>
+                        <a href="#">联系客服</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li>购物指南</li>
+                    <li>
+                        <a href="#">购物流程</a>
+                    </li>
+                    <li>
+                        <a href="#">会员介绍</a>
+                    </li>
+                    <li>
+                        <a href="#">生活旅行/团购</a>
+                    </li>
+                    <li>
+                        <a href="#">常见问题</a>
+                    </li>
+                    <li>
+                        <a href="#">大家电</a>
+                    </li>
+                    <li>
+                        <a href="#">联系客服</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li>购物指南</li>
+                    <li>
+                        <a href="#">购物流程</a>
+                    </li>
+                    <li>
+                        <a href="#">会员介绍</a>
+                    </li>
+                    <li>
+                        <a href="#">生活旅行/团购</a>
+                    </li>
+                    <li>
+                        <a href="#">常见问题</a>
+                    </li>
+                    <li>
+                        <a href="#">大家电</a>
+                    </li>
+                    <li>
+                        <a href="#">联系客服</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="f3 container">
+            <span>关于我们</span><span>|</span>
+            <span>联系我们</span><span>|</span>
+            <span>联系客服</span><span>|</span>
+            <span>合作招商</span><span>|</span>
+            <span>商家帮助</span><span>|</span>
+            <span>营销中心</span><span>|</span>
+            <span>English Site</span><span>|</span>
+            <span>Media & IR</span>
+        </div>
+        <div class="f4 container">
+            <span>Copyright &copy; 2020 - 2021  乐山LS.com 版权所有</span>
+            <span>|</span>
+            <span>消费者维权热线：4006067733经营证照</span>
+            <span>|</span>
+            <span>(川)网械平台备字(2020)第00004号</span>
+            <span>|</span>
+            <span>营业执照</span>
+        </div>
+    </div>
+    <!-- 底部栏结束 -->
+</body>
+</html>

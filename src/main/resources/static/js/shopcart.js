@@ -52,6 +52,9 @@ window.onload=function(){
 
             //调用计算总价格的方法
             getTotalPrice();
+
+            //4。刷新头部购物中的数量
+            calcCatCount();
         }
     });
 }
@@ -128,6 +131,9 @@ function del(id) {
                 //删除页面上对应的购物车信息
                 //通过id选择器找到对应的tr删除
                 $("#tr_"+id).remove();   //将自己及所有子标签从页面上删除
+
+                //4。刷新头部购物中的数量
+                calcCatCount();
             }
         }
     });
@@ -313,4 +319,30 @@ function selectGood(id){
 
     //3.重新计算总价
     totalPrice();
+
+    //4。刷新头部购物中的数量
+    calcCatCount();
 }
+
+//计算购物车中的数据
+function calcCatCount(){
+    $.ajax({
+        url:"cart/find",
+        type:"get",
+        success:function (res) {
+            if(res.data!=null){
+                $(".shopcart span:eq(1)").text("（"+res.data.length+"）");
+            }
+        }
+    });
+    $("li .shopcart").click(function (){
+        //获取session中的值
+        let userid = window.sessionStorage.getItem("userid");
+        if(userid==null) {
+            window.location.href = "login.html";
+        }else{
+            window.location.href = "shopcart.html";
+        }
+    });
+}
+

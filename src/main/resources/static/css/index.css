@@ -6,6 +6,7 @@
     position:fixed;
     top: 0;
     z-index: 999;
+    background-color: #F0F8FF;
 }
 .logo img{
     height: 60px;
@@ -77,7 +78,7 @@
     transform: rotate(360deg);
 }
 .shortcut li:nth-of-type(7) .shopcart{
-    width: 110px;
+    width: 130px;
     height: 40px;
     background-color: #FF7F50;
     margin-top: 18px;
@@ -89,6 +90,38 @@
     background-color: #CCC;
     color: red;
     border: 1px solid #999;
+}
+
+.shortcut #cat{
+    position: relative;
+}
+.shortcut #cat_down{
+    position: absolute;
+    left:-40px;
+    top:70px;
+    display: none;
+    z-index: 555;
+    background-color:  #F0F8FF;
+}
+.shortcut #cat_down li{
+    margin: 1px;
+    padding: 0px;
+    float: none;
+    height: 30px;
+    line-height: 30px;
+    list-style: none;
+    width: 120px;
+    text-align: center;
+    border:1px solid #449D44;
+}
+.shortcut #cat_down li a{
+    color: #000000;
+}
+.shortcut #cat:hover ul#cat_down{
+    display: block;
+}
+.shortcut #cat:hover a{
+    color:#F00;
 }
 
 /* 轮播图部分的CSS代码 */
@@ -168,9 +201,10 @@
 .hotpro{
     /* position: relative; */
     width: 1200px;
-    height: 600px;/*主要为了做测试*/
+    /*height: 600px;*/
     border: 1px solid #ccc;
     margin-top:25px;
+    padding-bottom: 30px;
     margin-bottom: 10px;
 }
 .hotpro .title{
@@ -201,9 +235,25 @@
     color: #FF7F50;
     margin-top:25px;
 }
+.hotpro .title ul{
+    margin-left: 60px;
+    margin-top:0px;
+}
+.hotpro .title  ul li{
+    float:left;
+    padding:5px;
+    margin:0px 5px;
+}
+.hotpro .title  ul li.active{
+    background-color: #ccc;
+}
+.hotpro .title  ul li.active a{
+    color:blue;
+}
 .hotpro .main{
     width: 1100px;
-    height: 500px;
+    /*height: 500px;*/
+    padding-bottom: 30px;
     margin: 20px auto;
 }
 .hotpro .main ul li{
@@ -251,13 +301,75 @@
     margin: 0 5px;
 }
 
+/*分页样式*/
+.hotpro #page{
+    width: 800px;
+    margin: 0px auto;
+    /*background-color: #ccc;*/
+}
+.hotpro #page ul{
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+.hotpro #page ul li{
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    margin: 2px;
+    border:1px solid blue;
+    text-align: center;
+    line-height: 30px;
+}
+.hotpro #page ul li.page_item{
+    width: 60px;
+}
+/*个人中心*/
+.hotpro .main .left{
+    float: left;
+    width: 241px;
+    margin-left: -30px;
+    margin-top:-10px;
+    /*border: 2px solid #ccc;*/
+}
+.hotpro .main .left ul li.title{
+    font-size: 18px;
+    padding-left: 16px;
+    width: 216px;
+}
+.hotpro .main .left ul li{
+    list-style-type: disc;
+    width: 200px;
+    height: 40px;
+    text-align: left;
+    /*background-color: #ccc;*/
+    margin:1px;
+    line-height: 40px;
+    border-bottom:1px dashed blue;
+    padding-left: 32px;
+}
+.hotpro .main .left ul li a{
+    color:#000;
+}
+.hotpro .main .left ul li a:hover{
+    color: blue;
+}
+
+.hotpro .main .right{
+    float: left;
+    width: 900px;
+    /*height: 400px;*/
+    /*border: 2px solid #ccc;*/
+    margin: -10px -20px 0px 2px;
+}
+
 /* 底部栏样式 */
 .footer{
     margin-top: 25px;
     padding-top:25px;
     height: 300px;
     color: #444;
-    /* background-color: #EAEAEA; */
+    /*background-color: #F0F8FF;*/
 }
 .footer .f1{
     font-size: 16px;
@@ -335,6 +447,7 @@
     color: #444;
     display: flex;
     justify-content:center;
+    background-color: #F0F8FF;
 }
 .footer .f3 span{
     margin: 10px;
@@ -343,6 +456,7 @@
     color: #444;
     display: flex;
     justify-content:center;
+    background-color: #F0F8FF;
 }
 .footer .f4 span{
     margin: 10px;

@@ -1,5 +1,7 @@
 package com.leshan.ebook.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.leshan.ebook.mapper.GoodsMapper;
 import com.leshan.ebook.mybatis.entity.Goods;
 import com.leshan.ebook.mybatis.entity.dto.GoodsDto;
@@ -29,5 +31,36 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public List<GoodsDto> findHot() {
         return goodsMapper.findHot();
+    }
+
+
+    @Override
+    public List<GoodsDto> searchBooksByKeywords(String name, Integer pageNum, Integer pageSize) {
+        //使用分页组件设置pageNum和pageSize
+        PageHelper.startPage(pageNum,pageSize);
+        return goodsMapper.searchGoodsByKeywords(name);
+    }
+
+    @Override
+    public PageInfo<GoodsDto> getPageByKeywords(String name, Integer pageNum, Integer pageSize) {
+        //使用分页组件设置pageNum和pageSize
+        PageHelper.startPage(pageNum,pageSize);
+        //获取集合
+        List<GoodsDto> list = goodsMapper.searchGoodsByKeywords(name);
+        //创建PageInfo对象
+        PageInfo<GoodsDto> pageInfo = new PageInfo<>(list);
+        return pageInfo;
+    }
+
+    @Override
+    public PageInfo<GoodsDto> getGoodsByCategoryId(Integer categoryId, Integer pageNum, Integer pageSize) {
+        //使用分页组件设置pageNum和pageSize
+        PageHelper.startPage(pageNum,pageSize);
+        //获取集合
+        List<GoodsDto> list = goodsMapper.findGoodsByCategoryId(categoryId);
+        //创建PageInfo对象
+        PageInfo<GoodsDto> pageInfo = new PageInfo<>(list);
+        //返回分页对象
+        return pageInfo;
     }
 }

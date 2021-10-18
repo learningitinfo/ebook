@@ -35,3 +35,26 @@ window.onload=function(){
        this.style.borderRight="1px solid #ccc";
     }
 }
+
+//计算购物车中的数据
+function calcCatCount(){
+    $.ajax({
+        url:"cart/find",
+        type:"get",
+        success:function (res) {
+            if(res.data!=null){
+                $(".shopcart span:eq(1)").text("（"+res.data.length+"）");
+            }
+        }
+    });
+    $("li .shopcart").click(function (){
+        //获取session中的值
+        let userid = window.sessionStorage.getItem("userid");
+        if(userid==null) {
+            window.location.href = "login.html";
+        }else{
+            window.location.href = "shopcart.html";
+        }
+    });
+}
+

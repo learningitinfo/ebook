@@ -1,10 +1,11 @@
 package com.leshan.ebook;
 
+import com.leshan.ebook.mapper.CategoryMapper;
 import com.leshan.ebook.mapper.GoodsMapper;
+import com.leshan.ebook.mybatis.entity.Category;
 import com.leshan.ebook.mybatis.entity.Goods;
 import com.leshan.ebook.mybatis.entity.dto.GoodsDto;
 import com.leshan.ebook.service.CartService;
-import com.leshan.ebook.service.OrderService;
 import com.leshan.ebook.service.impl.OrderServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -80,5 +81,14 @@ class EbookApplicationTests {
         int userid = 1;
         orderServiceImpl.makeOrder(ids,aid,userid);
 
+    }
+
+    @Resource
+    private CategoryMapper categoryMapper;
+
+    @Test
+    public void testList(){
+        List<Category> list = categoryMapper.findAllCategories();
+        System.out.println(list.size());
     }
 }

@@ -14,11 +14,26 @@
 
     <!--查询新上架的商品-->
     <select id="findNewSet" resultType="GoodsDto">
-        SELECT id,name,image,marketprice,salesprice,description FROM mall_goods WHERE newset='是' LIMIT 0,10;
+        SELECT id,name,image,marketprice,salesprice,description FROM mall_goods WHERE newset='是' LIMIT 0,10
     </select>
 
     <!--查询热卖商品-->
     <select id="findHot" resultType="GoodsDto">
-        SELECT id,name,image,marketprice,salesprice,description FROM mall_goods WHERE hot='是' LIMIT 0,10;
+        SELECT id,name,image,marketprice,salesprice,description FROM mall_goods WHERE hot='是' LIMIT 0,10
     </select>
+
+    <!--根据关键字查询图书-->
+    <select id="searchGoodsByKeywords" resultType="GoodsDto">
+        SELECT id,name,image,marketprice,salesprice,description FROM mall_goods
+        WHERE name like CONCAT('%',#{name},'%')
+    </select>
+
+    <!--根据分类编号获取该类别下的所有图书-->
+    <select id="findGoodsByCategoryId" resultType="GoodsDto">
+        SELECT id,name,image,marketprice,salesprice,description FROM mall_goods
+        <if test="categoryId!=null and categoryId!=0">
+            WHERE categoryId=#{categoryId}
+        </if>
+    </select>
+
 </mapper>

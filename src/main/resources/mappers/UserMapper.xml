@@ -5,6 +5,22 @@
 <!--namespace的值必须与对应mapper接口的全名一致-->
 <mapper namespace="com.leshan.ebook.mapper.UserMapper">
     <select id="findByAccount" resultType="User">
-        select id,account,password from mall_user where account = #{account}
+        select * from mall_user where account = #{account}
+    </select>
+    <select id="findAll" resultType="User">
+        SELECT * FROM mall_user
+    </select>
+    <!--添加用户-->
+    <insert id="addUser" parameterType="User">
+        INSERT INTO mall_user(account,password,email,avatar,score,regtime,status)
+        VALUES(#{account},#{password},#{email},#{avatar},#{score},#{regtime},#{status})
+    </insert>
+    <!--修改用户状态-->
+    <update id="updateUserStatus" parameterType="User">
+        update mall_user set status=1,avatar=null where id=#{id}
+    </update>
+    <!--根据验证码(头像）获取用户-->
+    <select id="findUserByAvatar" resultType="User">
+        SELECT * FROM mall_user WHERE avatar = #{avatar}
     </select>
 </mapper>

@@ -1,10 +1,12 @@
 package com.leshan.ebook.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.leshan.ebook.mybatis.entity.Goods;
 import com.leshan.ebook.mybatis.entity.dto.GoodsDto;
 import com.leshan.ebook.service.GoodsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -39,8 +41,31 @@ public class GoodsController {
     @RequestMapping("/findbyid")
     @ResponseBody
     public Goods findGoodsById(int id){
-
         return goodsService.findById(id);
+    }
+
+    @RequestMapping("/searchGoodsByKeywords")
+    @ResponseBody
+    public List<GoodsDto> searchGoodsByKeywords(@RequestParam(value="name",required = false,defaultValue = "")String name,
+                                                @RequestParam(value="pageNum",required = false,defaultValue = "1")Integer pageNum,
+                                                @RequestParam(value="pageSize",required = false,defaultValue = "15")Integer pageSize){
+        return goodsService.searchBooksByKeywords(name,pageNum,pageSize);
+    }
+
+    @RequestMapping("/getPageByKeywords")
+    @ResponseBody
+    public PageInfo<GoodsDto> getPageByKeywords(@RequestParam(value="name",required = false,defaultValue = "")String name,
+                                                @RequestParam(value="pageNum",required = false,defaultValue = "1")Integer pageNum,
+                                                @RequestParam(value="pageSize",required = false,defaultValue = "15")Integer pageSize){
+        return goodsService.getPageByKeywords(name,pageNum,pageSize);
+    }
+
+    @RequestMapping("/getGoodsByCategoryId")
+    @ResponseBody
+    public PageInfo<GoodsDto> getGoodsByCategoryId(@RequestParam(value="categoryId",required = false,defaultValue = "0")Integer categoryId,
+                                                   @RequestParam(value="pageNum",required = false,defaultValue = "1")Integer pageNum,
+                                                   @RequestParam(value="pageSize",required = false,defaultValue = "15")Integer pageSize){
+        return goodsService.getGoodsByCategoryId(categoryId,pageNum,pageSize);
     }
 
 }

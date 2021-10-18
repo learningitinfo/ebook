@@ -1,0 +1,430 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>在线书城-全世界最大书城</title>
+  <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./css/commons.css">
+  <link rel="stylesheet" href="./css/index.css">
+  <link rel="stylesheet" href="http://at.alicdn.com/t/font_2466032_1guctssow9r.css">
+  <!--导入jQuery-->
+  <script src="./js/jquery.min.js"></script>
+  <style>
+    .hotpro .main .right .right_top,.hotpro .main .right .right_content{
+      border: 1px solid #ccc;
+      margin:2px;
+    }
+    .hotpro .main .right .right_top h4{
+      padding-left: 20px;
+    }
+    .hotpro .main .right .right_top p{
+      line-height: 30px;
+    }
+    .hotpro .main .right .right_top .head{
+      width: 100px;
+      height: 120px;
+      border: 1px solid blue;
+      float: left;
+      margin:5px;
+    }
+    .hotpro .main .right .right_content table{
+      padding: 5px;
+    }
+    .hotpro .main .right .right_content table td{
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<!-- 头部开始 -->
+<div class="header flux clearfix"  style="position: static;">
+  <div class="container">
+    <h1 class="logo l">
+      <img src="./images/logo.jpeg" alt="">
+    </h1>
+    <ul class="shortcut">
+      <li>
+        <img src="./images/addr.png" alt="">
+        北京
+        <img src="./images/xia.png" alt="">
+      </li>
+      <li>首页</li>
+      <li id="cat"><a href="#">分类</a>
+        <ul id="cat_down">
+          <!--                        <li>AAAA</li>-->
+          <!--                        <li>AAAA</li>-->
+          <!--                        <li>AAAA</li>-->
+          <!--                        <li>AAAA</li>-->
+        </ul>
+      </li>
+      <script>
+        $.ajax({
+          url:"/category/list",
+          type:"get",
+          dataType:"json",  //期望得到的数据类型
+          success:function(result){
+            $.each(result,function(index,item){
+              //alert(result[index])
+              if(item.navable=='y'){
+                $("#cat_down").append($("<li><a href='category.html?id="+item.id+"&p=1'>" + item.name+"</a></li>"));
+              }
+            });
+            //$("#cat_down").append($("<li>" + ))
+          }
+        });
+      </script>
+      <li>
+        <img src="./images/search.png" alt="">
+        <input type="text" id="txt_search" placeholder="搜索图书、课堂、文艺类">
+        <button id="btn_search">搜索</button>
+        <script>
+          $("#btn_search").click(function(){
+            //获取文本框的内容
+            let book_name = $("#txt_search").val();
+            //将文本框的内容存储在session中
+            window.sessionStorage.setItem("book_name",book_name);
+            //页面跳转到search.html
+            location.href = "search.html";
+          });
+        </script>
+      </li>
+      <li>
+        <img src="./images/user.png" alt="">
+        <script>
+          //页面加载
+          $(function(){
+            //获取session中的值
+            let userid = window.sessionStorage.getItem("userid");
+            //alert(userid);
+            if(userid==null){
+              $("#header_login_info").html("<a href=\"login.html\">登录</a>");
+            }else{
+              $("#header_login_info").html("<a href=\"personal.html\">个人中心</a>");
+            }
+          });
+        </script>
+        <span id="header_login_info"></span>
+      </li>
+      <li>
+        <img src="./images/phone.png" alt="">
+        <span><a href="#">退出</a></span>
+      </li>
+      <li>
+        <div class="shopcart">
+          <i class="iconfont icon-gouwuche" style="font-size:20px"></i>
+          <span>购物车</span>
+          <span>0</span>
+        </div>
+        <script>
+          $(function(){
+            $.ajax({
+              url:"cart/find",
+              type:"get",
+              success:function (res) {
+                if(res.data!=null){
+                  $(".shopcart span:eq(1)").text("（"+res.data.length+"）");
+                }
+              }
+            });
+            $("li .shopcart").click(function (){
+              //获取session中的值
+              let userid = window.sessionStorage.getItem("userid");
+              if(userid==null) {
+                window.location.href = "login.html";
+              }else{
+                window.location.href = "shopcart.html";
+              }
+            });
+          });
+        </script>
+      </li>
+    </ul>
+  </div>
+</div>
+<!-- 头部结束 -->
+<!--个人中心开始-->
+<div class="hotpro clearfix container">
+  <div class="title clearfix">
+    <div class="first-title l">会</div>
+    <div class="second-title l">员中心</div>
+  </div>
+  <div class="main clearfix">
+    <div class="left">
+      <ul>
+        <li class="title">交易记录</li>
+        <li><a href="personal_order.html">我的订单</a></li>
+        <li class="title">个人设置</li>
+        <li><a href="#">地址管理</a></li>
+        <li><a href="#">修改头像</a></li>
+        <li><a href="#">修改密码</a></li>
+      </ul>
+    </div><!--left end-->
+    <div class="right">
+      <div class="right_top clearfix">
+        <h3 class="title">你好，xxx 欢迎回来</h3>
+        <h4>用户信息</h4>
+        <div class="head">
+          <img src="" alt="用户头像">
+          <br/>
+          <a href="#">修改头像</a>
+        </div>
+        <div class="right_order">
+          <p>你的订单交易数量：<span id="orderCount"></span>     <a href="#">进入订单列表</a></p>
+          <p>总消费金额：<span id="totalMoney"></span></p>
+          <p class="title">待评价的商品：（1） 待付款的订单：（0）待确认收货：（0）</p>
+        </div>
+      </div>
+      <div class="right_content">
+        <h3 class="title">我的订单</h3>
+        <table id="order_table" width="100%">
+          <tr class="title">
+            <th>订单编号</th>
+            <th>下单日期</th>
+            <th>收货人</th>
+            <th>支付方式</th>
+            <th>总金额</th>
+            <th>订单状态</th>
+          </tr>
+<!--          <tr>-->
+<!--            <td>LS2021101400001111</td>-->
+<!--            <td>2021-10-14 10:29:33</td>-->
+<!--            <td>张三</td>-->
+<!--            <td>在线支付</td>-->
+<!--            <td>88.88</td>-->
+<!--            <td>已支付</td>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--            <td>LS2021101400002222</td>-->
+<!--            <td>2021-10-14 10:29:44</td>-->
+<!--            <td>李四</td>-->
+<!--            <td>货到付款</td>-->
+<!--            <td>88.88</td>-->
+<!--            <td>未支付</td>-->
+<!--          </tr>-->
+        </table>
+        <p style="text-align: right;padding:10px;"><a href="#">更多订单</a></p>
+      </div>
+    </div><!--right end-->
+  </div>
+</div>
+<!--个人中心结束-->
+<!-- 底部栏开始 -->
+<div class="footer flux">
+  <div class="f1 container">
+    <ul>
+      <li>
+        <div class="tb1"></div>
+        <div class="tbc">品类齐全，轻松购物</div>
+      </li>
+      <li>
+        <div class="tb2"></div>
+        <div class="tbc">多仓直发，极速配送</div>
+      </li>
+      <li>
+        <div class="tb3"></div>
+        <div class="tbc">正品行货，精致服务</div>
+      </li>
+      <li>
+        <div class="tb4"></div>
+        <div class="tbc">天天低价，畅选无忧</div>
+      </li>
+    </ul>
+  </div>
+  <div class="operator"></div>
+  <div class="f2 container">
+    <div>
+      <ul>
+        <li>购物指南</li>
+        <li>
+          <a href="#">购物流程</a>
+        </li>
+        <li>
+          <a href="#">会员介绍</a>
+        </li>
+        <li>
+          <a href="#">生活旅行/团购</a>
+        </li>
+        <li>
+          <a href="#">常见问题</a>
+        </li>
+        <li>
+          <a href="#">大家电</a>
+        </li>
+        <li>
+          <a href="#">联系客服</a>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <li>购物指南</li>
+        <li>
+          <a href="#">购物流程</a>
+        </li>
+        <li>
+          <a href="#">会员介绍</a>
+        </li>
+        <li>
+          <a href="#">生活旅行/团购</a>
+        </li>
+        <li>
+          <a href="#">常见问题</a>
+        </li>
+        <li>
+          <a href="#">大家电</a>
+        </li>
+        <li>
+          <a href="#">联系客服</a>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <li>购物指南</li>
+        <li>
+          <a href="#">购物流程</a>
+        </li>
+        <li>
+          <a href="#">会员介绍</a>
+        </li>
+        <li>
+          <a href="#">生活旅行/团购</a>
+        </li>
+        <li>
+          <a href="#">常见问题</a>
+        </li>
+        <li>
+          <a href="#">大家电</a>
+        </li>
+        <li>
+          <a href="#">联系客服</a>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <li>购物指南</li>
+        <li>
+          <a href="#">购物流程</a>
+        </li>
+        <li>
+          <a href="#">会员介绍</a>
+        </li>
+        <li>
+          <a href="#">生活旅行/团购</a>
+        </li>
+        <li>
+          <a href="#">常见问题</a>
+        </li>
+        <li>
+          <a href="#">大家电</a>
+        </li>
+        <li>
+          <a href="#">联系客服</a>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <li>购物指南</li>
+        <li>
+          <a href="#">购物流程</a>
+        </li>
+        <li>
+          <a href="#">会员介绍</a>
+        </li>
+        <li>
+          <a href="#">生活旅行/团购</a>
+        </li>
+        <li>
+          <a href="#">常见问题</a>
+        </li>
+        <li>
+          <a href="#">大家电</a>
+        </li>
+        <li>
+          <a href="#">联系客服</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="f3 container">
+    <span>关于我们</span><span>|</span>
+    <span>联系我们</span><span>|</span>
+    <span>联系客服</span><span>|</span>
+    <span>合作招商</span><span>|</span>
+    <span>商家帮助</span><span>|</span>
+    <span>营销中心</span><span>|</span>
+    <span>English Site</span><span>|</span>
+    <span>Media & IR</span>
+  </div>
+  <div class="f4 container">
+    <span>Copyright &copy; 2020 - 2021  乐山LS.com 版权所有</span>
+    <span>|</span>
+    <span>消费者维权热线：4006067733经营证照</span>
+    <span>|</span>
+    <span>(川)网械平台备字(2020)第00004号</span>
+    <span>|</span>
+    <span>营业执照</span>
+  </div>
+</div>
+<!-- 底部栏结束 -->
+</body>
+
+<script>
+  $(function(){
+    //验证用户是否登录
+    let userId = window.sessionStorage.getItem("userid");
+    if(userId==null){
+      location.href = "login.html";
+      return;
+    }else{
+      //获取用户信息
+      let account = window.sessionStorage.getItem("account");
+      //设置欢迎信息
+      $(".main .right .right_top h3.title").text("你好，"+account+"欢迎回来");
+      //显示订单数量和总金额
+      $.ajax({
+        url:"order/totalOrder",
+        type:"get",
+        data:{"userid":userId},
+        dataType: "json",
+        success:function (res){
+          if(res.code==200){
+            $("#orderCount").text(res.data.orderCount);
+            $("#totalMoney").text(res.data.totalMoney);
+          }
+        }
+      });
+      //显示订单列表
+      $.ajax({
+        url:"order/getOrdersPage",
+        type:"get",
+        data:{
+          "userId":userId,
+          "status":0,
+          "pageNum":1,
+          "pageSize":2
+        },
+        dataType:"json",
+        success:function (res){
+          if(res.code==200){
+            //显示订单
+            $.each(res.data.list,function(index,item){
+             var trData =  $("<tr><td>"+item.orderno+"</td>"
+                      +"<td>"+item.ordertime+"</td>"
+                      +"<td>"+item.accept+"</td>"
+                      +"<td>"+(item.paytype==0?"货到付款":"在线支付")+"</td>"
+                      +"<td>"+item.money+"</td>"
+                      +"<td>待付款</td></tr>");
+             //将数据行追加到表格中
+              $("#order_table").append(trData);
+            });
+          }
+        }
+      });
+    }
+  });
+</script>
+</html>

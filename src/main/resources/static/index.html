@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="http://at.alicdn.com/t/font_2466032_1guctssow9r.css">
     <!--导入jQuery-->
     <script src="./js/jquery.min.js"></script>
-    
 </head>
 <body>
     <!-- 头部开始 -->
@@ -26,26 +25,94 @@
                     <img src="./images/xia.png" alt="">
                  </li>
                 <li>首页</li>
-                <li>分类</li>
+                <li id="cat"><a href="#">分类</a>
+                    <ul id="cat_down">
+<!--                        <li>AAAA</li>-->
+<!--                        <li>AAAA</li>-->
+<!--                        <li>AAAA</li>-->
+<!--                        <li>AAAA</li>-->
+                    </ul>
+                </li>
+                <script>
+                    $.ajax({
+                        url:"/category/list",
+                        type:"get",
+                        dataType:"json",  //期望得到的数据类型
+                        success:function(result){
+                            $.each(result,function(index,item){
+                                //alert(result[index])
+                                if(item.navable=='y'){
+                                 $("#cat_down").append($("<li><a href='category.html?id="+item.id+"&p=1'>" + item.name+"</a></li>"));
+                                }
+                            });
+                            //$("#cat_down").append($("<li>" + ))
+                        }
+                    });
+                </script>
                 <li>
                     <img src="./images/search.png" alt="">
-                    <input type="text" placeholder="搜索图书、课堂、文艺类">
-                    <button>搜索</button>
+                    <input type="text" id="txt_search" placeholder="搜索图书、课堂、文艺类">
+                    <button id="btn_search">搜索</button>
+                    <script>
+                        $("#btn_search").click(function(){
+                            //获取文本框的内容
+                            let book_name = $("#txt_search").val();
+                            //将文本框的内容存储在session中
+                            window.sessionStorage.setItem("book_name",book_name);
+                            //页面跳转到search.html
+                            location.href = "search.html";
+                        });
+                    </script>
                 </li>
                 <li>
                     <img src="./images/user.png" alt="">
-                    <span>登录</span>
+                    <script>
+                        //页面加载
+                        $(function(){
+                            //获取session中的值
+                            let userid = window.sessionStorage.getItem("userid");
+                            //alert(userid);
+                            if(userid==null){
+                                $("#header_login_info").html("<a href=\"login.html\">登录</a>");
+                            }else{
+                                $("#header_login_info").html("<a href=\"personal.html\">个人中心</a>");
+                            }
+                        });
+                    </script>
+                    <span id="header_login_info"></span>
                 </li>
                 <li>
                     <img src="./images/phone.png" alt="">
-                    <span>下载</span>
+                    <span><a href="register.html">注册</a></span>
                 </li>
                 <li>
-                    <div class="shopcart" onclick="window.location.href='./shopcart.html'">
+                    <div class="shopcart">
                         <i class="iconfont icon-gouwuche" style="font-size:20px"></i>
                         <span>购物车</span>
                         <span>0</span>
                     </div>
+                    <script>
+                        $(function(){
+                            $.ajax({
+                                url:"cart/find",
+                                type:"get",
+                                success:function (res) {
+                                    if(res.data!=null){
+                                        $(".shopcart span:eq(1)").text("（"+res.data.length+"）");
+                                    }
+                                }
+                            });
+                            $("li .shopcart").click(function (){
+                                //获取session中的值
+                                let userid = window.sessionStorage.getItem("userid");
+                                if(userid==null) {
+                                    window.location.href = "login.html";
+                                }else{
+                                    window.location.href = "shopcart.html";
+                                }
+                            });
+                        });
+                    </script>
                 </li>
             </ul>
         </div>
@@ -66,7 +133,7 @@
     </div>
     <!-- 轮播图结束 -->
     <!-- 最新商品区开始 -->
-    <div class="hotpro container">
+    <div class="hotpro clearfix container">
         <div class="title clearfix">
             <div class="first-title l">新</div>
             <div class="second-title l">书上架</div>
@@ -145,7 +212,7 @@
 
 
     <!-- 热卖商品开始 -->
-    <div class="hotpro container">
+    <div class="hotpro clearfix container">
         <div class="title clearfix">
             <div class="first-title l">热</div>
             <div class="second-title l">卖上架</div>

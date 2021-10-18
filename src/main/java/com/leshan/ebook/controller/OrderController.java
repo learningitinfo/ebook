@@ -4,13 +4,16 @@ import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
+import com.github.pagehelper.PageInfo;
 import com.leshan.ebook.config.AlipayConfig;
 import com.leshan.ebook.enums.Status;
+import com.leshan.ebook.mybatis.entity.Order;
 import com.leshan.ebook.mybatis.entity.dto.OrderDto;
 import com.leshan.ebook.service.OrderService;
 import com.leshan.ebook.utils.ResponseResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -26,6 +29,43 @@ import java.util.Map;
 public class OrderController {
     @Resource
     private OrderService orderService;
+
+    /**
+     * 用户统计交易订单数量和总金额
+     * @param userid
+     * @return
+     */
+    @RequestMapping("/totalOrder")
+    @ResponseBody
+    public ResponseResult totalOrder(Integer userid){
+        ResponseResult responseResult = new ResponseResult();
+        Map<String,Object> map = orderService.totalOrder(userid);
+        responseResult.setCode(200);
+        responseResult.setData(map);
+        return  responseResult;
+    }
+
+    /**
+     * 根据用户编号和订单状态获取分页对象
+     * @param userId
+     * @param status
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping("/getOrdersPage")
+    @ResponseBody
+    public ResponseResult getOrdersPageByUserIdAndStatus(@RequestParam(value="userId",required = false,defaultValue = "0")Integer userId,
+                                                         @RequestParam(value="status",required = false,defaultValue = "0")String status,
+                                                         @RequestParam(value="pageNum",required = false,defaultValue = "1")Integer pageNum,
+                                                         @RequestParam(value="pageSize",required = false,defaultValue = "2")Integer pageSize){
+
+        PageInfo<Order> pageInfo = orderService.getOrdersPageByUserIdAndStatus(userId,status,pageNum,pageSize);
+        ResponseResult responseResult = new ResponseResult();
+        responseResult.setCode(200);
+        responseResult.setData(pageInfo);
+        return responseResult;
+    }
 
     @RequestMapping("/make")
     @ResponseBody
@@ -73,7 +113,8 @@ public class OrderController {
 
         //请求
         String result = alipayClient.pageExecute(alipayRequest).getBody();
-
+        //设置响应内容类型
+        response.setContentType("text/html;charset=UTF-8");
         //输出
         response.getWriter().println(result);
     }

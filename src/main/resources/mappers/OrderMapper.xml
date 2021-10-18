@@ -41,4 +41,25 @@
     <update id="update">
         update mall_cart set paytime = now(),status = '1' where orderno = #{orderno}
     </update>
+
+    <!--统计交易订单(已付款）-->
+    <select id="totalOrder" resultType="map" parameterType="Integer">
+        SELECT COUNT(*) AS orderCount,sum(money) as totalMoney
+        FROM mall_order
+        WHERE userid=#{userId} AND status=1
+        GROUP BY userid
+    </select>
+
+    <!--根据用户编号和订单状态查询订单集合-->
+    <select id="getOrdersByUserIdAndStatus" resultType="Order">
+        SELECT * FROM mall_order
+        WHERE 1=1
+        <if test="userId!=null and userId!=0">
+            AND userId = #{userId}
+        </if>
+        <if test="status!=null">
+            AND status = #{status}
+        </if>
+        ORDER BY ordertime DESC
+    </select>
 </mapper>
